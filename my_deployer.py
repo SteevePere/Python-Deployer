@@ -1,6 +1,8 @@
 import sys
+import time
 import argparse
 import paramiko
+from termcolor import colored
 
 APPS = ['msContainers', 'msDaisy', 'all']
 USERS = ['root']
@@ -48,35 +50,44 @@ def ssh_connect(args):
         ssh.connect(server, username=user, password=password)
 
     except:
-        print("ERROR: SSH connection to " + server + " failed")
+        print(colored("ERROR: SSH connection to " + server + " failed", 'red'))
         sys.exit(1)
 
-    print ("--- SSH connection to " + server + " successful ---")
+    print(colored("--- SSH connection to " + server + " successful ---", 'yellow'))
 
     return(ssh)
 
 
-def ssh_command(ssh, command, print_output):
+def ssh_command(ssh, command, print_stdout):
 
     stdin, stdout, stderr = ssh.exec_command(command)
-    command_output = stdout.readlines()
+    stdout_output = stdout.readlines()
+    stderr_output = stderr.readlines()
 
-    terminal_output = ""
+    standard_output = ""
+    error_output = ""
 
-    if (print_output):
+    if (stderr_output):
 
-        for line in command_output:
-            terminal_output += line
+        for line in stderr_output:
+            error_output += line
 
-        print(terminal_output)
+        print(colored(error_output, 'red'))
 
-    return(command_output)
+    if (print_stdout):
+
+        for line in stdout_output:
+            standard_output += line
+
+        print(standard_output)
+
+    return(stdout_output)
 
 
 def ssh_close(ssh):
 
     ssh.close()
-    print("--- SSH connection closed ---")
+    print(colored("--- SSH connection closed ---", 'yellow'))
 
     return
 
@@ -115,7 +126,7 @@ def install_or_update_docker(ssh, callback):
         message = "--- Updating Docker to "
 
     message += EXPECTED_DOCKER_VERSION + "..."
-    print(message)
+    print(colored(message, 'yellow'))
 
     ftp_client = ssh.open_sftp()
     ftp_client.put(local_path, remote_path)
@@ -126,37 +137,38 @@ def install_or_update_docker(ssh, callback):
     ftp_client.remove(remote_path)
     ftp_client.close()
 
-    print("Done")
+    print(colored("Done", 'yellow'))
 
     return
 
 
 def set_up_docker(ssh):
 
-    print("--- Checking current Docker version...")
+    print(colored("--- Checking current Docker version...", 'yellow'))
 
     docker_version = get_docker_version(ssh)
 
     if (docker_version == ""):
 
-        print("Docker not found on remote host")
+        print(colored("Docker not found on remote host", 'yellow'))
         install_or_update_docker(ssh, "install")
 
     elif (docker_version != "" and docker_version != EXPECTED_DOCKER_VERSION):
 
-        print("Current Docker version on remote host is " + docker_version)
-        print("Let's update it to Docker " + EXPECTED_DOCKER_VERSION)
+        print(colored("Current Docker version on remote host is " + docker_version, 'yellow'))
+        print(colored("Let's update it to Docker " + EXPECTED_DOCKER_VERSION, 'yellow'))
+
         install_or_update_docker(ssh, "update")
 
     else:
-        print("Docker is up-to-date, proceeding")
+        print(colored("Docker is up-to-date, proceeding", 'yellow'))
 
     return
 
 
 def build_apps(ssh, args):
 
-    print("--- Building services...")
+    print(colored("--- Building services...", 'yellow'))
 
     ftp_client = ssh.open_sftp()
     microservices = args.microservice
@@ -184,12 +196,13 @@ def build_apps(ssh, args):
         ftp_client.put(local_dockerfile_path, remote_dockerfile_path)
         ftp_client.put(local_app_path, remote_app_path)
 
-        print("- Building " + microservice + "...\n")
+        print(colored("- Building " + microservice + "...\n", 'yellow'))
+
         build_image(ssh, microservice)
 
     ftp_client.close()
 
-    print("Done")
+    print(colored("Done", 'yellow'))
 
     return(microservices)
 
@@ -205,27 +218,84 @@ def build_image(ssh, microservice):
     return
 
 
+def get_container_id(ssh, microservice):
+
+    print(colored("--- Checking current version for " + microservice + "...", 'yellow'))
+
+    command = "docker ps -qf" + " 'name=" + microservice + "'"
+    container_id = ssh_command(ssh, command, False)
+
+    return(container_id)
+
+
+def remove_container(ssh, microservice):
+
+    print(colored("--- Removing pre-existing container...", 'yellow'))
+
+    command = "docker rm -f " + microservice
+    ssh_command(ssh, command, True)
+
+    return
+
+
+def stop_container(ssh, microservice, container_id):
+
+    print(colored("--- Stopping " + microservice + "...", 'yellow'))
+
+    container_id = container_id[0]
+    command = "docker stop " + container_id
+    ssh_command(ssh, command, True)
+
+    return
+
+
+def run_container(ssh, microservice):
+
+    print(colored("--- Running new version of service...", 'yellow'))
+
+    command = "docker run -d --name " + microservice + " --network=host " + microservice + ":latest"
+    run_output = ssh_command(ssh, command, True)
+
+    return(run_output)
+
+
+def start_container(ssh, container_id):
+
+    container_id = container_id[0]
+
+    print(colored("--- Restoring container " + container_id, 'yellow'))
+
+    command = "docker start " + container_id
+    ssh_command(ssh, command, True)
+
+    return
+
+
 def run_containers(ssh, microservices):
 
     for microservice in microservices:
 
-        print("--- Checking existing version for " + microservice + "...")
-
-        command = "docker ps -qf" + " 'name=" + microservice + "'"
-        container_id = ssh_command(ssh, command, True)
+        microservice = microservice.lower()
+        container_id = get_container_id(ssh, microservice)
 
         if not (container_id):
-            print("No running container for " + microservice)
-            # run container from build_image
+
+            print(colored("No running container for " + microservice, 'yellow'))
+
+            remove_container(ssh, microservice)
+            run_container(ssh, microservice)
+
         else:
-            print("--- Stopping " + microservice + "...")
 
-            command = "docker stop " + container_id
-            ssh_command(ssh, command, True)
+            stop_container(ssh, microservice, container_id)
+            remove_container(ssh, microservice)
+            run_container(ssh, microservice)
 
-            command = "docker run --name " + microservice + " --network=host " + microservice + ":latest"
-            run_output = ssh_command(ssh, command, True)
-            print(run_output)
+            time.sleep(0.5)
+            new_container_id = get_container_id(ssh, microservice)
+
+            if not (new_container_id):
+                start_container(ssh, container_id)
 
     return
 
