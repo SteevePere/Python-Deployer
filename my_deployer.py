@@ -2,10 +2,15 @@ import sys
 import argparse
 import paramiko
 
-
+APPS = ['msContainers', 'msDaisy', 'all']
+USERS = ['root']
 EXPECTED_DOCKER_VERSION = "18.09"
-LOCAL_SCRIPT_PATH = "./install_or_update_docker.sh"
-REMOTE_SCRIPT_PATH = "/home/steeve/install_or_update_docker.sh"
+
+LOCAL_WORK_DIR = "./"
+LOCAL_SCRIPT_PATH = LOCAL_WORK_DIR + "install_or_update_docker.sh"
+
+REMOTE_WORK_DIR = "/home/steeve/Documents/my_deployer/"
+REMOTE_SCRIPT_PATH = REMOTE_WORK_DIR + "install_or_update_docker.sh"
 
 
 def get_cli_args():
@@ -13,8 +18,8 @@ def get_cli_args():
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--server")
-    parser.add_argument("--user", choices=['root'])
-    parser.add_argument("--microservice")
+    parser.add_argument("--user", choices = USERS, required=True)
+    parser.add_argument("--microservice", nargs='*', choices = APPS, required=True)
 
     if len(sys.argv) < 2:
 
@@ -22,6 +27,9 @@ def get_cli_args():
         sys.exit(1)
 
     args = parser.parse_args()
+
+    if not (args.microservice):
+        parser.error('Please choose at least one --microservice to deploy')
 
     return(args)
 
@@ -95,27 +103,6 @@ def get_docker_version(ssh):
     return(docker_version)
 
 
-def set_up_docker(ssh):
-
-    docker_version = get_docker_version(ssh)
-
-    if (docker_version == ""):
-
-        print("Docker not found on remote host. Let's install it!")
-        install_or_update_docker(ssh, "install")
-
-    elif (docker_version != "" and docker_version != EXPECTED_DOCKER_VERSION):
-
-        print("Current Docker version on remote host is " + docker_version)
-        print("Let's update it to Docker " + EXPECTED_DOCKER_VERSION)
-        install_or_update_docker(ssh, "update")
-
-    else:
-        print("Docker is up-to-date, proceeding")
-
-    return
-
-
 def install_or_update_docker(ssh, callback):
 
     local_path = LOCAL_SCRIPT_PATH
@@ -139,6 +126,80 @@ def install_or_update_docker(ssh, callback):
     ftp_client.remove(remote_path)
     ftp_client.close()
 
+    print("Done")
+
+    return
+
+
+def set_up_docker(ssh):
+
+    print("Checking current Docker version...")
+
+    docker_version = get_docker_version(ssh)
+
+    if (docker_version == ""):
+
+        print("Docker not found on remote host")
+        install_or_update_docker(ssh, "install")
+
+    elif (docker_version != "" and docker_version != EXPECTED_DOCKER_VERSION):
+
+        print("Current Docker version on remote host is " + docker_version)
+        print("Let's update it to Docker " + EXPECTED_DOCKER_VERSION)
+        install_or_update_docker(ssh, "update")
+
+    else:
+        print("Docker is up-to-date, proceeding")
+
+    return
+
+
+def build_apps(ssh, args):
+
+    print("Building services...")
+
+    ftp_client = ssh.open_sftp()
+    microservices = args.microservice
+
+    if ("all" in args.microservice):
+
+        microservices = APPS
+        microservices.remove('all')
+
+    for microservice in microservices:
+
+        local_dockerfile_path = LOCAL_WORK_DIR + microservice + "/Dockerfile"
+        remote_dockerfile_path = REMOTE_WORK_DIR + microservice
+
+        local_app_path = LOCAL_WORK_DIR + microservice + "/app.py"
+        remote_app_path = REMOTE_WORK_DIR + microservice + "/app.py"
+
+        try:
+            ftp_client.chdir(remote_dockerfile_path)
+
+        except IOError:
+            ftp_client.mkdir(remote_dockerfile_path)
+
+        remote_dockerfile_path = remote_dockerfile_path + "/Dockerfile"
+        ftp_client.put(local_dockerfile_path, remote_dockerfile_path)
+        ftp_client.put(local_app_path, remote_app_path)
+
+        print("--- Building " + microservice + "...\n")
+        build_image(ssh, microservice, remote_dockerfile_path)
+
+    ftp_client.close()
+
+    print("Done")
+
+    return
+
+
+def build_image(ssh, microservice, remote_dockerfile_path):
+
+    microservice = microservice.lower()
+    command = "docker build -f " + remote_dockerfile_path + " -t " + microservice + ":latest ."
+    ssh_command(ssh, command, True)
+
     return
 
 
@@ -147,6 +208,7 @@ def main():
     args = get_cli_args()
     ssh = ssh_connect(args)
     set_up_docker(ssh)
+    build_apps(ssh, args)
     ssh_close(ssh)
 
     return
