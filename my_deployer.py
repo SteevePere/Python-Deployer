@@ -51,7 +51,7 @@ def ssh_connect(args):
         print("ERROR: SSH connection to " + server + " failed")
         sys.exit(1)
 
-    print ("SSH connection to " + server + " successful")
+    print ("--- SSH connection to " + server + " successful ---")
 
     return(ssh)
 
@@ -76,7 +76,7 @@ def ssh_command(ssh, command, print_output):
 def ssh_close(ssh):
 
     ssh.close()
-    print("SSH connection closed")
+    print("--- SSH connection closed ---")
 
     return
 
@@ -109,10 +109,10 @@ def install_or_update_docker(ssh, callback):
     remote_path = REMOTE_SCRIPT_PATH
 
     if (callback == "install"):
-        message = "Installing Docker-ce "
+        message = "--- Installing Docker-ce "
 
     elif (callback == "update"):
-        message = "Updating Docker to "
+        message = "--- Updating Docker to "
 
     message += EXPECTED_DOCKER_VERSION + "..."
     print(message)
@@ -133,7 +133,7 @@ def install_or_update_docker(ssh, callback):
 
 def set_up_docker(ssh):
 
-    print("Checking current Docker version...")
+    print("--- Checking current Docker version...")
 
     docker_version = get_docker_version(ssh)
 
@@ -156,7 +156,7 @@ def set_up_docker(ssh):
 
 def build_apps(ssh, args):
 
-    print("Building services...")
+    print("--- Building services...")
 
     ftp_client = ssh.open_sftp()
     microservices = args.microservice
@@ -184,21 +184,48 @@ def build_apps(ssh, args):
         ftp_client.put(local_dockerfile_path, remote_dockerfile_path)
         ftp_client.put(local_app_path, remote_app_path)
 
-        print("--- Building " + microservice + "...\n")
-        build_image(ssh, microservice, remote_dockerfile_path)
+        print("- Building " + microservice + "...\n")
+        build_image(ssh, microservice)
 
     ftp_client.close()
 
     print("Done")
 
+    return(microservices)
+
+
+def build_image(ssh, microservice):
+
+    remote_dockerfile_path = REMOTE_WORK_DIR + microservice
+    microservice = microservice.lower()
+
+    command = "cd " + remote_dockerfile_path + " && docker build -t " + microservice + ":latest ."
+    ssh_command(ssh, command, True)
+
     return
 
 
-def build_image(ssh, microservice, remote_dockerfile_path):
+def run_containers(ssh, microservices):
 
-    microservice = microservice.lower()
-    command = "docker build -f " + remote_dockerfile_path + " -t " + microservice + ":latest ."
-    ssh_command(ssh, command, True)
+    for microservice in microservices:
+
+        print("--- Checking existing version for " + microservice + "...")
+
+        command = "docker ps -qf" + " 'name=" + microservice + "'"
+        container_id = ssh_command(ssh, command, True)
+
+        if not (container_id):
+            print("No running container for " + microservice)
+            # run container from build_image
+        else:
+            print("--- Stopping " + microservice + "...")
+
+            command = "docker stop " + container_id
+            ssh_command(ssh, command, True)
+
+            command = "docker run --name " + microservice + " --network=host " + microservice + ":latest"
+            run_output = ssh_command(ssh, command, True)
+            print(run_output)
 
     return
 
@@ -208,7 +235,8 @@ def main():
     args = get_cli_args()
     ssh = ssh_connect(args)
     set_up_docker(ssh)
-    build_apps(ssh, args)
+    microservices = build_apps(ssh, args)
+    run_containers(ssh, microservices)
     ssh_close(ssh)
 
     return
