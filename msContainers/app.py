@@ -1,19 +1,67 @@
-import subprocess
+import sys, subprocess
 import json
+import paramiko
 from flask import Flask, jsonify, request
 
 
 app = Flask(__name__)
 
 
+def ssh_connect():
+
+    ssh = paramiko.SSHClient()
+    ssh.load_system_host_keys()
+    ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+
+    try:
+        ssh.connect('172.16.15.24', username='root', password='Makaveli')
+
+    except:
+        print("ERROR: SSH connection failed")
+        sys.exit(1)
+
+    print("--- SSH connection successful ---")
+
+    return(ssh)
+
+
+def ssh_command(ssh, command, print_stdout):
+
+    stdin, stdout, stderr = ssh.exec_command(command)
+    stdout_output = stdout.readlines()
+    stderr_output = stderr.readlines()
+
+    standard_output = ""
+    error_output = ""
+
+    if (stderr_output):
+
+        for line in stderr_output:
+            error_output += line
+
+        print(error_output)
+
+    if (print_stdout):
+
+        for line in stdout_output:
+            standard_output += line
+
+        print(standard_output)
+
+    return(stdout_output)
+
+
 def get_containers(show_all):
 
-    command = ["docker", "container", "ls", "--format", "{{.ID}}, {{.Image}}, {{.Status}}"]
+    all = " "
 
     if (show_all):
-        command[3:3] = ["-a"]
+        all = " -a "
 
-    containers = subprocess.check_output(command)
+    ssh = ssh_connect()
+    command = "docker container ls" + all + "--format '{{.ID}}, {{.Image}}, {{.Status}}'"
+
+    containers = ssh_command(ssh, command, True)
 
     return(containers)
 
@@ -55,7 +103,10 @@ def get_all():
     containers = get_containers(show_all)
     data = containers_to_dict(containers)
 
-    return jsonify({'code':200, 'message': 'OK', 'data': data}),200
+    print(container)
+    # print(data)
+
+    return jsonify({'code':200, 'message': 'OK', 'data': containers}),200
 
 
 @app.route('/container/<id>', methods=['GET'])

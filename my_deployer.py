@@ -261,11 +261,18 @@ def run_container(ssh, microservice):
 
 def start_container(ssh, container_id):
 
-    container_id = container_id[0]
-
     print(colored("--- Restoring container " + container_id, 'yellow'))
 
     command = "docker start " + container_id
+    ssh_command(ssh, command, True)
+
+    return
+
+
+def rename_container(ssh, old_name, new_name):
+
+    remove_container(ssh, new_name)
+    command = "docker rename " + old_name + " " + new_name
     ssh_command(ssh, command, True)
 
     return
@@ -288,14 +295,19 @@ def run_containers(ssh, microservices):
         else:
 
             stop_container(ssh, microservice, container_id)
-            remove_container(ssh, microservice)
+
+            backup_container = microservice + "_backup"
+            rename_container(ssh, microservice, backup_container)
             run_container(ssh, microservice)
 
             time.sleep(0.5)
             new_container_id = get_container_id(ssh, microservice)
 
             if not (new_container_id):
-                start_container(ssh, container_id)
+
+                print(colored("New container failed, restoring from previous version...", 'red'))
+                start_container(ssh, backup_container)
+                rename_container(ssh, backup_container, microservice)
 
     return
 
