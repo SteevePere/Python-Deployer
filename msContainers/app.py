@@ -5,6 +5,11 @@ from flask import Flask, jsonify, request
 
 
 app = Flask(__name__)
+HOST = '192.168.0.38'
+USERNAME = 'root'
+PASSWORD = 'Makaveli'
+KEYS_ALL = ["HASH", "IMAGE", "UPTIME"]
+KEYS_ONE = ["LONG_HASH", "IMAGE", "UPTIME", "VOLUMES", "PORTS"]
 
 
 def ssh_connect():
@@ -14,7 +19,7 @@ def ssh_connect():
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
-        ssh.connect('172.16.15.24', username='root', password='Makaveli')
+        ssh.connect(HOST, username=USERNAME, password=PASSWORD)
 
     except:
         print("ERROR: SSH connection failed")
@@ -51,6 +56,15 @@ def ssh_command(ssh, command, print_stdout):
     return(stdout_output)
 
 
+def get_container(id):
+
+    ssh = ssh_connect()
+    command = "docker inspect " + id + " --format '{{.Id}}, {{.Image}}, {{.State.StartedAt}}, {{.Mounts}}, {{.NetworkSettings.Ports}}'"
+    container_info = ssh_command(ssh, command, False)
+
+    return(container_info)
+
+
 def get_containers(show_all):
 
     all = " "
@@ -61,31 +75,58 @@ def get_containers(show_all):
     ssh = ssh_connect()
     command = "docker container ls" + all + "--format '{{.ID}}, {{.Image}}, {{.Status}}'"
 
-    containers = ssh_command(ssh, command, True)
+    containers = ssh_command(ssh, command, False)
 
     return(containers)
 
 
-def containers_to_dict(containers):
+def get_version(data):
 
-    containers = containers.decode("utf-8")
-    containers = containers.split('\n')
+    for container in data:
+
+        image = container["IMAGE"]
+        print(image)
+
+        image_and_version = image.split(':')
+        print(image_and_version)
+
+        image = image_and_version[0]
+
+        if (len(image_and_version) > 1):
+            version = image_and_version[1]
+        else:
+            version = "latest"
+
+        container["IMAGE"] = image
+        container["VERSION"] = version
+
+    return(data)
+
+
+def containers_to_dict(containers, one_or_all):
 
     containers_list = []
     data = []
+    keys = KEYS_ONE
+
+    if (one_or_all is "all"):
+        keys = KEYS_ALL
 
     for container in containers:
 
         if (container != ''):
 
+            container = container.split('\n')
+            container = str(container[0])
             container = container.split(', ')
             containers_list.append(container)
-
-    keys = ["HASH", "IMAGE", "UPTIME"]
 
     for container_list in containers_list:
         dictionary = dict(zip(keys, container_list))
         data.append(dictionary)
+
+    if (one_or_all is "all"):
+        data = get_version(data)
 
     return(data)
 
@@ -101,19 +142,25 @@ def get_all():
         show_all = True
 
     containers = get_containers(show_all)
-    data = containers_to_dict(containers)
+    data = containers_to_dict(containers, "all")
 
-    print(container)
-    # print(data)
-
-    return jsonify({'code':200, 'message': 'OK', 'data': containers}),200
+    return jsonify({'code':200, 'message': 'OK', 'data': data}),200
 
 
 @app.route('/container/<id>', methods=['GET'])
 
 def get_one(id):
 
-    return jsonify({'code':200, 'message': 'OK', 'data': "data"}),200
+    containers_list = []
+    data = []
+    container = get_container(id)
+    print(container)
+    if (container == ['\n']):
+	       return jsonify({'code':404,'message': 'Not Found'}),404
+
+    data = containers_to_dict(container, "one")
+
+    return jsonify({'code':200, 'message': 'OK', 'data': data}),200
 
 
 #ERROR ROUTE

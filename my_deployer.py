@@ -1,6 +1,10 @@
+#!/usr/bin/env python3
+# PYTHON_ARGCOMPLETE_OK
+
 import sys
-import time
-import argparse
+import time, datetime
+import logging
+import argcomplete, argparse
 import paramiko
 from termcolor import colored
 
@@ -14,6 +18,11 @@ LOCAL_SCRIPT_PATH = LOCAL_WORK_DIR + "install_or_update_docker.sh"
 REMOTE_WORK_DIR = "/home/steeve/Documents/my_deployer/"
 REMOTE_SCRIPT_PATH = REMOTE_WORK_DIR + "install_or_update_docker.sh"
 
+LOG_FILE = 'my_deployer.log'
+
+
+logging.basicConfig(filename=LOG_FILE,level=logging.DEBUG)
+
 
 def get_cli_args():
 
@@ -22,12 +31,14 @@ def get_cli_args():
     parser.add_argument("--server")
     parser.add_argument("--user", choices = USERS, required=True)
     parser.add_argument("--microservice", nargs='*', choices = APPS, required=True)
+    parser.add_argument("--healthcheck", action='store_true')
 
     if len(sys.argv) < 2:
 
         parser.print_usage()
         sys.exit(1)
 
+    argcomplete.autocomplete(parser)
     args = parser.parse_args()
 
     if not (args.microservice):
@@ -41,6 +52,7 @@ def ssh_connect(args):
     server = args.server
     user = args.user
     password = "Makaveli"
+    now = datetime.datetime.now()
 
     ssh = paramiko.SSHClient()
     ssh.load_system_host_keys()
@@ -53,12 +65,15 @@ def ssh_connect(args):
         print(colored("ERROR: SSH connection to " + server + " failed", 'red'))
         sys.exit(1)
 
-    print(colored("--- SSH connection to " + server + " successful ---", 'yellow'))
+    print(colored("\n--- SSH connection to " + server + " successful ---", 'yellow'))
+    logging.info('\n')
+    logging.info('NEW RUN ' + str(now) + '\n')
 
     return(ssh)
 
 
 def ssh_command(ssh, command, print_stdout):
+
 
     stdin, stdout, stderr = ssh.exec_command(command)
     stdout_output = stdout.readlines()
@@ -73,6 +88,7 @@ def ssh_command(ssh, command, print_stdout):
             error_output += line
 
         print(colored(error_output, 'red'))
+        logging.warning(error_output + 'status: K.O.')
 
     if (print_stdout):
 
@@ -80,6 +96,7 @@ def ssh_command(ssh, command, print_stdout):
             standard_output += line
 
         print(standard_output)
+        logging.info(standard_output + 'status: O.K.')
 
     return(stdout_output)
 
@@ -87,7 +104,7 @@ def ssh_command(ssh, command, print_stdout):
 def ssh_close(ssh):
 
     ssh.close()
-    print(colored("--- SSH connection closed ---", 'yellow'))
+    print(colored("\n--- SSH connection closed ---", 'yellow'))
 
     return
 
@@ -137,14 +154,14 @@ def install_or_update_docker(ssh, callback):
     ftp_client.remove(remote_path)
     ftp_client.close()
 
-    print(colored("Done", 'yellow'))
+    print(colored("Done!\n", 'yellow'))
 
     return
 
 
 def set_up_docker(ssh):
 
-    print(colored("--- Checking current Docker version...", 'yellow'))
+    print(colored("\n--- Checking current Docker version...", 'yellow'))
 
     docker_version = get_docker_version(ssh)
 
@@ -168,7 +185,7 @@ def set_up_docker(ssh):
 
 def build_apps(ssh, args):
 
-    print(colored("--- Building services...", 'yellow'))
+    print(colored("\n--- Building services...", 'yellow'))
 
     ftp_client = ssh.open_sftp()
     microservices = args.microservice
@@ -202,7 +219,7 @@ def build_apps(ssh, args):
 
     ftp_client.close()
 
-    print(colored("Done", 'yellow'))
+    print(colored("Done!\n", 'yellow'))
 
     return(microservices)
 
@@ -261,9 +278,19 @@ def run_container(ssh, microservice):
 
 def start_container(ssh, container_id):
 
-    print(colored("--- Restoring container " + container_id, 'yellow'))
+    print(colored("--- Starting container " + container_id, 'yellow'))
 
     command = "docker start " + container_id
+    ssh_command(ssh, command, True)
+
+    return
+
+
+def restart_container(ssh, container_id):
+
+    print(colored("--- Restarting container " + container_id, 'yellow'))
+
+    command = "docker restart " + container_id
     ssh_command(ssh, command, True)
 
     return
@@ -312,6 +339,36 @@ def run_containers(ssh, microservices):
     return
 
 
+def health_check(ssh, args):
+
+    if (args.healthcheck):
+
+        microservices = args.microservice
+
+        if ("all" in args.microservice):
+            microservices = APPS
+
+        for microservice in microservices:
+
+            microservice = microservice.lower()
+
+            print(colored("\nChecking health of " + microservice + "...", 'yellow'))
+
+            command = "docker inspect " + microservice + " --format '{{.State.Health.Status}}'"
+            health = ssh_command(ssh, command, False)
+            health = str(health[0].rstrip().strip())
+
+            if (health != "healthy" and health != "starting"):
+
+                print(colored("Container is " + health + "!", 'red'))
+                restart_container(ssh, microservice)
+
+            else:
+                print(colored("Container is " + health + "!", 'yellow'))
+
+    return
+
+
 def main():
 
     args = get_cli_args()
@@ -319,6 +376,7 @@ def main():
     set_up_docker(ssh)
     microservices = build_apps(ssh, args)
     run_containers(ssh, microservices)
+    health_check(ssh, args)
     ssh_close(ssh)
 
     return
