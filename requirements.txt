@@ -1,6 +1,6 @@
 # pip packages required to run module
 
-argcomplete==1.9.4
-argparse==1.2.1
-paramiko==2.4.2
-termcolor==1.1.0
+argcomplete==1.9.4  # for argparse auto-completion
+argparse==1.2.1  # cli argument parser
+paramiko==2.4.2  # SSH client
+termcolor==1.1.0  # to print to cli in color

@@ -2,14 +2,16 @@
 """SSH client"""
 
 import sys
-import time, datetime
+import time
+import datetime
 import paramiko
 import logging
 from termcolor import colored
 
+# custom modules
 import globals
 
-logging.basicConfig(filename=globals.LOG_FILE,level=logging.DEBUG)
+logging.basicConfig(filename=globals.LOG_FILE, level=logging.DEBUG)  # logger config
 
 
 def ssh_connect(args):
@@ -18,9 +20,9 @@ def ssh_connect(args):
     server = args.server
     user = args.user
     password = "Makaveli"
-    now = datetime.datetime.now()
+    now = datetime.datetime.now()  # for logger history
 
-    ssh = paramiko.SSHClient()
+    ssh = paramiko.SSHClient()  # setting up client
     ssh.load_system_host_keys()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
@@ -42,8 +44,8 @@ def ssh_command(ssh, command, print_stdout):
     """Sends Unix commands to remote server via SSH"""
 
     stdin, stdout, stderr = ssh.exec_command(command)
-    stdout_output = stdout.readlines()
-    stderr_output = stderr.readlines()
+    stdout_output = stdout.readlines()  # retrieving standard output
+    stderr_output = stderr.readlines()  # retrieving error output
 
     standard_output = ""
     error_output = ""
@@ -56,7 +58,7 @@ def ssh_command(ssh, command, print_stdout):
         print(colored(error_output, 'red'))
         logging.warning(error_output + 'status: K.O.')
 
-    if (print_stdout):
+    if (print_stdout):  # boolean passed to toggle output printout
 
         for line in stdout_output:
             standard_output += line

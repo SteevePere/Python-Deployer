@@ -1,3 +1,5 @@
+"""Remote Docker API"""
+
 import sys, subprocess
 import json
 import paramiko
@@ -13,8 +15,9 @@ KEYS_ONE = ["LONG_HASH", "IMAGE", "UPTIME", "VOLUMES", "PORTS"]
 
 
 def ssh_connect():
+    """Connects to remote server via SSH"""
 
-    ssh = paramiko.SSHClient()
+    ssh = paramiko.SSHClient()  # initialize SSH client
     ssh.load_system_host_keys()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
@@ -31,10 +34,11 @@ def ssh_connect():
 
 
 def ssh_command(ssh, command, print_stdout):
+    """Sends Unix commands to remote server via SSH"""
 
     stdin, stdout, stderr = ssh.exec_command(command)
-    stdout_output = stdout.readlines()
-    stderr_output = stderr.readlines()
+    stdout_output = stdout.readlines()  # retrieving standard output
+    stderr_output = stderr.readlines()  # retrieving error output
 
     standard_output = ""
     error_output = ""
@@ -46,7 +50,7 @@ def ssh_command(ssh, command, print_stdout):
 
         print(error_output)
 
-    if (print_stdout):
+    if (print_stdout):  # boolean passed to toggle standard output printout
 
         for line in stdout_output:
             standard_output += line
@@ -57,60 +61,59 @@ def ssh_command(ssh, command, print_stdout):
 
 
 def get_container(id):
+    """Gets container info from its id"""
 
     ssh = ssh_connect()
-    command = "docker inspect " + id + " --format '{{.Id}}, {{.Image}}, {{.State.StartedAt}}, {{.Mounts}}, {{.NetworkSettings.Ports}}'"
+    command = "docker inspect " + id + " --format '{{.Id}}, {{.Image}}, {{.State.StartedAt}}, {{.Mounts}}, {{.NetworkSettings.Ports}}'"  # gets info
     container_info = ssh_command(ssh, command, False)
 
     return(container_info)
 
 
 def get_containers(show_all):
+    """Gets all containers info"""
 
     all = " "
 
     if (show_all):
-        all = " -a "
+        all = " -a "  # to add to command in oder to list all containers
 
     ssh = ssh_connect()
     command = "docker container ls" + all + "--format '{{.ID}}, {{.Image}}, {{.Status}}'"
-
     containers = ssh_command(ssh, command, False)
 
     return(containers)
 
 
 def get_version(data):
+    """Gets image version"""
 
     for container in data:
 
         image = container["IMAGE"]
-        print(image)
-
-        image_and_version = image.split(':')
-        print(image_and_version)
-
+        image_and_version = image.split(':')  # separating image from tag
         image = image_and_version[0]
 
-        if (len(image_and_version) > 1):
+        if (len(image_and_version) > 1):  # if tag exists
             version = image_and_version[1]
         else:
-            version = "latest"
+            version = "latest"  # default tag
 
-        container["IMAGE"] = image
-        container["VERSION"] = version
+        container["IMAGE"] = image  # inserting into dict
+        container["VERSION"] = version # inserting into dict
 
     return(data)
 
 
 def containers_to_dict(containers, one_or_all):
+    """Parses docker ps output"""
 
     containers_list = []
     data = []
     keys = KEYS_ONE
 
     if (one_or_all is "all"):
-        keys = KEYS_ALL
+        keys = KEYS_ALL  # different info for get container routes
 
     for container in containers:
 
@@ -122,11 +125,11 @@ def containers_to_dict(containers, one_or_all):
             containers_list.append(container)
 
     for container_list in containers_list:
-        dictionary = dict(zip(keys, container_list))
+        dictionary = dict(zip(keys, container_list))  # matching keys to values
         data.append(dictionary)
 
     if (one_or_all is "all"):
-        data = get_version(data)
+        data = get_version(data)  # getting version
 
     return(data)
 
@@ -134,6 +137,7 @@ def containers_to_dict(containers, one_or_all):
 @app.route('/containers', methods=['GET'])
 
 def get_all():
+    """Returns all containers"""
 
     show_all = False
     all = request.args.get("all")
@@ -150,11 +154,12 @@ def get_all():
 @app.route('/container/<id>', methods=['GET'])
 
 def get_one(id):
+    """Returns one container"""
 
     containers_list = []
     data = []
     container = get_container(id)
-    print(container)
+
     if (container == ['\n']):
 	       return jsonify({'code':404,'message': 'Not Found'}),404
 
@@ -167,6 +172,8 @@ def get_one(id):
 @app.errorhandler(404)
 
 def not_found(error):
+    """404 output"""
+
 	return jsonify({'code':404,'message': 'Not Found'}),404
 
 
