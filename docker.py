@@ -3,6 +3,7 @@
 
 import time
 from termcolor import colored
+
 import ssh_client, globals
 
 
@@ -40,7 +41,7 @@ def build_apps(ssh, args):
 
     ftp_client.close()
 
-    print(colored("Done!\n", 'yellow'))
+    print(colored("Done\n", 'yellow'))
 
     return(microservices)
 
@@ -80,7 +81,7 @@ def remove_container(ssh, microservice):
 def stop_container(ssh, microservice, container_id):
     """Stops a Docker container"""
 
-    print(colored("--- Stopping " + microservice + "...", 'yellow'))
+    print(colored("--- Stopping previous version of " + microservice + "...", 'yellow'))
 
     container_id = container_id[0]
     command = "docker stop " + container_id
@@ -178,7 +179,7 @@ def health_check(ssh, args):
 
             microservice = microservice.lower()
 
-            print(colored("\nChecking health of " + microservice + "...", 'yellow'))
+            print(colored("\n--- Checking health of " + microservice + "...", 'yellow'))
 
             command = "docker inspect " + microservice + " --format '{{.State.Health.Status}}'"
             health = ssh_client.ssh_command(ssh, command, False)
@@ -186,10 +187,10 @@ def health_check(ssh, args):
 
             if (health != "healthy" and health != "starting"):
 
-                print(colored("Container is " + health + "!", 'red'))
+                print(colored("Container is " + health, 'red'))
                 restart_container(ssh, microservice)
 
             else:
-                print(colored("Container is " + health + "!", 'yellow'))
+                print(colored("Container is " + health, 'green'))
 
     return

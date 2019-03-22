@@ -2,6 +2,7 @@
 """Gets Docker environment ready"""
 
 from termcolor import colored
+
 import ssh_client, globals
 
 
@@ -52,7 +53,7 @@ def install_or_update_docker(ssh, callback):
     ftp_client.remove(remote_path)
     ftp_client.close()
 
-    print(colored("Done!\n", 'yellow'))
+    print(colored("Done\n", 'yellow'))
 
     return
 
@@ -77,6 +78,6 @@ def set_up_docker(ssh):
         install_or_update_docker(ssh, "update")
 
     else:
-        print(colored("\nDocker is up-to-date, proceeding", 'yellow'))
+        print(colored("\nDocker is up-to-date, proceeding", 'green'))
 
     return

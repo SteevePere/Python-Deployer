@@ -6,6 +6,7 @@ import time, datetime
 import paramiko
 import logging
 from termcolor import colored
+
 import globals
 
 logging.basicConfig(filename=globals.LOG_FILE,level=logging.DEBUG)
