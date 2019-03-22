@@ -133,7 +133,9 @@ def containers_to_dict(containers, one_or_all):
 
     return(data)
 
+# --- ROUTES
 
+#GET ALL
 @app.route('/containers', methods=['GET'])
 
 def get_all():
@@ -151,6 +153,7 @@ def get_all():
     return jsonify({'code':200, 'message': 'OK', 'data': data}),200
 
 
+#GET ONE
 @app.route('/container/<id>', methods=['GET'])
 
 def get_one(id):
@@ -168,13 +171,13 @@ def get_one(id):
     return jsonify({'code':200, 'message': 'OK', 'data': data}),200
 
 
-#ERROR ROUTE
+#404
 @app.errorhandler(404)
 
 def not_found(error):
     """404 output"""
 
-	return jsonify({'code':404,'message': 'Not Found'}),404
+    return jsonify({'code':404,'message': 'Not Found'}),404
 
 
 if (__name__ == "__main__"):
