@@ -1,13 +1,14 @@
-"""Remote Docker API"""
-
-import sys, subprocess
+import sys
+import subprocess
 import json
 import paramiko
 from flask import Flask, jsonify, request
 
 
 app = Flask(__name__)
-HOST = '192.168.0.38'
+
+
+HOST = '172.16.15.24'
 USERNAME = 'root'
 PASSWORD = 'Makaveli'
 KEYS_ALL = ["HASH", "IMAGE", "UPTIME"]
@@ -15,14 +16,14 @@ KEYS_ONE = ["LONG_HASH", "IMAGE", "UPTIME", "VOLUMES", "PORTS"]
 
 
 def ssh_connect():
-    """Connects to remote server via SSH"""
+    """Coonects to SSH server"""
 
-    ssh = paramiko.SSHClient()  # initialize SSH client
+    ssh = paramiko.SSHClient()  # initalize SSH client
     ssh.load_system_host_keys()
     ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
 
     try:
-        ssh.connect(HOST, username=USERNAME, password=PASSWORD)
+        ssh.connect(HOST, username=USERNAME, password=PASSWORD)  # try to connect
 
     except:
         print("ERROR: SSH connection failed")
@@ -34,11 +35,11 @@ def ssh_connect():
 
 
 def ssh_command(ssh, command, print_stdout):
-    """Sends Unix commands to remote server via SSH"""
+    """Sends SSH command"""
 
     stdin, stdout, stderr = ssh.exec_command(command)
-    stdout_output = stdout.readlines()  # retrieving standard output
-    stderr_output = stderr.readlines()  # retrieving error output
+    stdout_output = stdout.readlines()
+    stderr_output = stderr.readlines()
 
     standard_output = ""
     error_output = ""
@@ -50,7 +51,7 @@ def ssh_command(ssh, command, print_stdout):
 
         print(error_output)
 
-    if (print_stdout):  # boolean passed to toggle standard output printout
+    if (print_stdout):  # boolean to toggle stdout printout
 
         for line in stdout_output:
             standard_output += line
@@ -60,29 +61,30 @@ def ssh_command(ssh, command, print_stdout):
     return(stdout_output)
 
 
-def get_container(id):
-    """Gets container info from its id"""
-
-    ssh = ssh_connect()
-    command = "docker inspect " + id + " --format '{{.Id}}, {{.Image}}, {{.State.StartedAt}}, {{.Mounts}}, {{.NetworkSettings.Ports}}'"  # gets info
-    container_info = ssh_command(ssh, command, False)
-
-    return(container_info)
-
-
 def get_containers(show_all):
-    """Gets all containers info"""
+    """Gets all containers"""
 
     all = " "
 
     if (show_all):
-        all = " -a "  # to add to command in oder to list all containers
+        all = " -a "  # insert to get all based on boolean
 
     ssh = ssh_connect()
     command = "docker container ls" + all + "--format '{{.ID}}, {{.Image}}, {{.Status}}'"
-    containers = ssh_command(ssh, command, False)
+
+    containers = ssh_command(ssh, command, True)
 
     return(containers)
+
+
+def get_container(id):
+    """Gets container info from its id"""
+
+    ssh = ssh_connect()
+    command = "docker inspect " + id + " --format '{{.Id}}, {{.Image}}, {{.State.StartedAt}}, {{.Mounts}}, {{.NetworkSettings.Ports}}'"  # gets and formats info
+    container_info = ssh_command(ssh, command, False)
+
+    return(container_info)
 
 
 def get_version(data):
@@ -171,13 +173,11 @@ def get_one(id):
     return jsonify({'code':200, 'message': 'OK', 'data': data}),200
 
 
-#404
+#ERROR ROUTE
 @app.errorhandler(404)
 
 def not_found(error):
-    """404 output"""
-
-    return jsonify({'code':404,'message': 'Not Found'}),404
+	return jsonify({'code':404,'message': 'Not Found'}),404
 
 
 if (__name__ == "__main__"):
