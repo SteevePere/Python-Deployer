@@ -19,7 +19,7 @@ def ssh_connect(args):
 
     server = args.server
     user = args.user
-    password = "Makaveli"
+    password = globals.REMOTE_SSH_PASSWORD
     now = datetime.datetime.now()  # for logger history
 
     ssh = paramiko.SSHClient()  # setting up client

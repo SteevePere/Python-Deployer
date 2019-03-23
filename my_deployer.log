@@ -1,551 +1,4 @@
-DEBUG:paramiko.transport:starting thread (client mode): 0x9a603ba8
-DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_2.4.2
-DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u6
-INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4p1)
-DEBUG:paramiko.transport:kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['ssh-rsa', 'rsa-sha2-512', 'rsa-sha2-256', 'ecdsa-sha2-nistp256', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
-DEBUG:paramiko.transport:Kex agreed: ecdh-sha2-nistp256
-DEBUG:paramiko.transport:HostKey agreed: ssh-ed25519
-DEBUG:paramiko.transport:Cipher agreed: aes128-ctr
-DEBUG:paramiko.transport:MAC agreed: hmac-sha2-256
-DEBUG:paramiko.transport:Compression agreed: none
-DEBUG:paramiko.transport:kex engine KexNistp256 specified hash_algo <built-in function openssl_sha256>
-DEBUG:paramiko.transport:Switch to new keys ...
-DEBUG:paramiko.transport:Adding ssh-ed25519 host key for 172.16.15.24: b'8697d405e2ec7e105637d9dcd97a6ede'
-DEBUG:paramiko.transport:userauth is OK
-INFO:paramiko.transport:Authentication (password) successful!
-INFO:root:
-
-INFO:root:NEW RUN 2019-03-23 10:26:36.848961
-
-DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:Received global request "hostkeys-00@openssh.com"
-DEBUG:paramiko.transport:Rejecting "hostkeys-00@openssh.com" global request from server.
-DEBUG:paramiko.transport:[chan 0] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 0 opened.
-DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
-DEBUG:paramiko.transport:[chan 0] EOF received (0)
-DEBUG:paramiko.transport:[chan 0] EOF sent (0)
-DEBUG:paramiko.transport:[chan 1] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 1] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 1 opened.
-DEBUG:paramiko.transport:[chan 1] Sesch channel 1 request ok
-DEBUG:paramiko.transport:[chan 1] EOF received (1)
-DEBUG:paramiko.transport:[chan 2] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 1] EOF sent (1)
-DEBUG:paramiko.transport:[chan 2] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 2 opened.
-DEBUG:paramiko.transport:[chan 2] Sesch channel 2 request ok
-INFO:paramiko.transport.sftp:[chan 2] Opened sftp connection (server version 3)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers')
-DEBUG:paramiko.transport.sftp:[chan 2] normalize(b'/home/steeve/Documents/my_deployer/msContainers')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/app.py', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/app.py', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers/app.py')
-DEBUG:paramiko.transport:[chan 3] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 3] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 3 opened.
-DEBUG:paramiko.transport:[chan 3] Sesch channel 3 request ok
-DEBUG:paramiko.transport:[chan 3] EOF received (3)
-INFO:root:Sending build context to Docker daemon  7.168kB
-Step 1/10 : FROM debian:latest
- ---> 0af60a5c6dd0
-Step 2/10 : MAINTAINER Steeve Péré "steevepere@gmail.com"
- ---> Using cache
- ---> 55277f65a3a0
-Step 3/10 : RUN apt-get update -y
- ---> Using cache
- ---> f9537c14a2c0
-Step 4/10 : RUN apt-get install -y python3-pip python-dev build-essential curl
- ---> Using cache
- ---> 0547420604f7
-Step 5/10 : RUN pip3 install flask
- ---> Using cache
- ---> 6799b250e47e
-Step 6/10 : RUN pip3 install paramiko
- ---> Using cache
- ---> 07214dbc248b
-Step 7/10 : COPY . .
- ---> Using cache
- ---> d876e5486d3f
-Step 8/10 : ENTRYPOINT ["python3"]
- ---> Using cache
- ---> d56ba976331a
-Step 9/10 : CMD ["app.py"]
- ---> Using cache
- ---> e4ed4887f613
-Step 10/10 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5002/containers || exit 1
- ---> Using cache
- ---> ef5ce113266b
-Successfully built ef5ce113266b
-Successfully tagged mscontainers:latest
-status: O.K.
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy')
-DEBUG:paramiko.transport:[chan 3] EOF sent (3)
-DEBUG:paramiko.transport.sftp:[chan 2] normalize(b'/home/steeve/Documents/my_deployer/msDaisy')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/app.py', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/app.py', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy/app.py')
-DEBUG:paramiko.transport:[chan 4] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 4] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 4 opened.
-DEBUG:paramiko.transport:[chan 4] Sesch channel 4 request ok
-DEBUG:paramiko.transport:[chan 4] EOF received (4)
-DEBUG:paramiko.transport:[chan 4] EOF sent (4)
-INFO:root:Sending build context to Docker daemon  3.072kB
-Step 1/9 : FROM debian:latest
- ---> 0af60a5c6dd0
-Step 2/9 : MAINTAINER Steeve Péré "steevepere@gmail.com"
- ---> Using cache
- ---> 55277f65a3a0
-Step 3/9 : RUN apt-get update -y
- ---> Using cache
- ---> f9537c14a2c0
-Step 4/9 : RUN apt-get install -y python-pip python-dev build-essential curl
- ---> Using cache
- ---> 9eea8c49641c
-Step 5/9 : RUN pip install flask
- ---> Using cache
- ---> aa806fe2a073
-Step 6/9 : COPY . .
- ---> Using cache
- ---> 4428f20c2b46
-Step 7/9 : ENTRYPOINT ["python"]
- ---> Using cache
- ---> fd92c108a9b3
-Step 8/9 : CMD ["app.py"]
- ---> Using cache
- ---> e7289d272217
-Step 9/9 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5003/hello || exit 1
- ---> Using cache
- ---> 98b1f6fc2d5a
-Successfully built 98b1f6fc2d5a
-Successfully tagged msdaisy:latest
-status: O.K.
-INFO:paramiko.transport.sftp:[chan 2] sftp session closed.
-DEBUG:paramiko.transport:[chan 2] EOF sent (2)
-DEBUG:paramiko.transport:[chan 5] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 5] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 5 opened.
-DEBUG:paramiko.transport:Ignoring message for dead channel 2
-DEBUG:paramiko.transport:Ignoring message for dead channel 2
-DEBUG:paramiko.transport:[chan 5] Sesch channel 5 request ok
-DEBUG:paramiko.transport:[chan 5] EOF received (5)
-DEBUG:paramiko.transport:[chan 5] EOF sent (5)
-DEBUG:paramiko.transport:[chan 6] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 6] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 6 opened.
-DEBUG:paramiko.transport:[chan 6] Sesch channel 6 request ok
-DEBUG:paramiko.transport:[chan 6] EOF received (6)
-DEBUG:paramiko.transport:[chan 6] EOF sent (6)
-INFO:root:mscontainers
-status: O.K.
-DEBUG:paramiko.transport:[chan 7] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 7] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 7 opened.
-DEBUG:paramiko.transport:[chan 7] Sesch channel 7 request ok
-DEBUG:paramiko.transport:[chan 7] EOF received (7)
-DEBUG:paramiko.transport:[chan 7] EOF sent (7)
-INFO:root:80e404332ea151e1b84b80fbf5fba173f99a2b9b7d2c9c5e014de3beecf7cab8
-status: O.K.
-DEBUG:paramiko.transport:[chan 8] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 8] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 8 opened.
-DEBUG:paramiko.transport:[chan 8] Sesch channel 8 request ok
-DEBUG:paramiko.transport:[chan 8] EOF received (8)
-DEBUG:paramiko.transport:[chan 9] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 8] EOF sent (8)
-DEBUG:paramiko.transport:[chan 9] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 9 opened.
-DEBUG:paramiko.transport:[chan 9] Sesch channel 9 request ok
-DEBUG:paramiko.transport:[chan 9] EOF received (9)
-WARNING:root:Error: No such container: msdaisy
-status: K.O.
-INFO:root:status: O.K.
-DEBUG:paramiko.transport:[chan 10] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 10] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 10 opened.
-DEBUG:paramiko.transport:[chan 9] EOF sent (9)
-DEBUG:paramiko.transport:[chan 10] Sesch channel 10 request ok
-DEBUG:paramiko.transport:[chan 10] EOF received (10)
-INFO:root:1dbec0909ec476600cb9d600187bf41d737288bc7828f7df09c7d3b006aeaf7e
-status: O.K.
-DEBUG:paramiko.transport:[chan 11] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 10] EOF sent (10)
-DEBUG:paramiko.transport:[chan 11] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 11 opened.
-DEBUG:paramiko.transport:[chan 11] Sesch channel 11 request ok
-DEBUG:paramiko.transport:[chan 11] EOF received (11)
-DEBUG:paramiko.transport:[chan 12] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 11] EOF sent (11)
-DEBUG:paramiko.transport:[chan 12] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 12 opened.
-DEBUG:paramiko.transport:[chan 12] Sesch channel 12 request ok
-DEBUG:paramiko.transport:[chan 12] EOF received (12)
-DEBUG:paramiko.transport:starting thread (client mode): 0xf14b5a90
-DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_2.4.2
-DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u6
-INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4p1)
-DEBUG:paramiko.transport:kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['ssh-rsa', 'rsa-sha2-512', 'rsa-sha2-256', 'ecdsa-sha2-nistp256', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
-DEBUG:paramiko.transport:Kex agreed: ecdh-sha2-nistp256
-DEBUG:paramiko.transport:HostKey agreed: ssh-ed25519
-DEBUG:paramiko.transport:Cipher agreed: aes128-ctr
-DEBUG:paramiko.transport:MAC agreed: hmac-sha2-256
-DEBUG:paramiko.transport:Compression agreed: none
-DEBUG:paramiko.transport:kex engine KexNistp256 specified hash_algo <built-in function openssl_sha256>
-DEBUG:paramiko.transport:Switch to new keys ...
-DEBUG:paramiko.transport:Adding ssh-ed25519 host key for 172.16.15.24: b'8697d405e2ec7e105637d9dcd97a6ede'
-DEBUG:paramiko.transport:userauth is OK
-INFO:paramiko.transport:Authentication (password) successful!
-INFO:root:
-
-INFO:root:NEW RUN 2019-03-23 10:27:32.890356
-
-DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:Received global request "hostkeys-00@openssh.com"
-DEBUG:paramiko.transport:Rejecting "hostkeys-00@openssh.com" global request from server.
-DEBUG:paramiko.transport:[chan 0] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 0 opened.
-DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
-DEBUG:paramiko.transport:[chan 0] EOF received (0)
-DEBUG:paramiko.transport:[chan 1] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 0] EOF sent (0)
-DEBUG:paramiko.transport:[chan 1] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 1 opened.
-DEBUG:paramiko.transport:[chan 1] Sesch channel 1 request ok
-DEBUG:paramiko.transport:[chan 1] EOF received (1)
-DEBUG:paramiko.transport:[chan 2] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 1] EOF sent (1)
-DEBUG:paramiko.transport:[chan 2] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 2 opened.
-DEBUG:paramiko.transport:[chan 2] Sesch channel 2 request ok
-INFO:paramiko.transport.sftp:[chan 2] Opened sftp connection (server version 3)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy')
-DEBUG:paramiko.transport.sftp:[chan 2] normalize(b'/home/steeve/Documents/my_deployer/msDaisy')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/app.py', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/app.py', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy/app.py')
-DEBUG:paramiko.transport:[chan 3] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 3] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 3 opened.
-DEBUG:paramiko.transport:[chan 3] Sesch channel 3 request ok
-DEBUG:paramiko.transport:[chan 3] EOF received (3)
-INFO:root:Sending build context to Docker daemon  3.072kB
-Step 1/9 : FROM debian:latest
- ---> 0af60a5c6dd0
-Step 2/9 : MAINTAINER Steeve Péré "steevepere@gmail.com"
- ---> Using cache
- ---> 55277f65a3a0
-Step 3/9 : RUN apt-get update -y
- ---> Using cache
- ---> f9537c14a2c0
-Step 4/9 : RUN apt-get install -y python-pip python-dev build-essential curl
- ---> Using cache
- ---> 9eea8c49641c
-Step 5/9 : RUN pip install flask
- ---> Using cache
- ---> aa806fe2a073
-Step 6/9 : COPY . .
- ---> Using cache
- ---> 4428f20c2b46
-Step 7/9 : ENTRYPOINT ["python"]
- ---> Using cache
- ---> fd92c108a9b3
-Step 8/9 : CMD ["app.py"]
- ---> Using cache
- ---> e7289d272217
-Step 9/9 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5003/hello || exit 1
- ---> Using cache
- ---> 98b1f6fc2d5a
-Successfully built 98b1f6fc2d5a
-Successfully tagged msdaisy:latest
-status: O.K.
-INFO:paramiko.transport.sftp:[chan 2] sftp session closed.
-DEBUG:paramiko.transport:[chan 2] EOF sent (2)
-DEBUG:paramiko.transport:[chan 4] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 3] EOF sent (3)
-DEBUG:paramiko.transport:Ignoring message for dead channel 2
-DEBUG:paramiko.transport:Ignoring message for dead channel 2
-DEBUG:paramiko.transport:Ignoring message for dead channel 2
-DEBUG:paramiko.transport:[chan 4] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 4 opened.
-DEBUG:paramiko.transport:[chan 4] Sesch channel 4 request ok
-DEBUG:paramiko.transport:[chan 4] EOF received (4)
-DEBUG:paramiko.transport:[chan 5] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 4] EOF sent (4)
-DEBUG:paramiko.transport:[chan 5] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 5 opened.
-DEBUG:paramiko.transport:[chan 5] Sesch channel 5 request ok
-DEBUG:paramiko.transport:[chan 5] EOF received (5)
-INFO:root:1dbec0909ec4
-status: O.K.
-DEBUG:paramiko.transport:[chan 6] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 5] EOF sent (5)
-DEBUG:paramiko.transport:[chan 6] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 6 opened.
-DEBUG:paramiko.transport:[chan 6] Sesch channel 6 request ok
-DEBUG:paramiko.transport:[chan 6] EOF received (6)
-INFO:root:msdaisy_backup
-status: O.K.
-DEBUG:paramiko.transport:[chan 7] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 6] EOF sent (6)
-DEBUG:paramiko.transport:[chan 7] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 7 opened.
-DEBUG:paramiko.transport:[chan 7] Sesch channel 7 request ok
-DEBUG:paramiko.transport:[chan 7] EOF received (7)
-INFO:root:status: O.K.
-DEBUG:paramiko.transport:[chan 8] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 7] EOF sent (7)
-DEBUG:paramiko.transport:[chan 8] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 8 opened.
-DEBUG:paramiko.transport:[chan 8] Sesch channel 8 request ok
-DEBUG:paramiko.transport:[chan 8] EOF received (8)
-INFO:root:73e228be6fd9f063bb70b67260d216f49a36f07eae27b43fe249fb16de2b3969
-status: O.K.
-DEBUG:paramiko.transport:[chan 8] EOF sent (8)
-DEBUG:paramiko.transport:[chan 9] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 9] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 9 opened.
-DEBUG:paramiko.transport:[chan 9] Sesch channel 9 request ok
-DEBUG:paramiko.transport:[chan 9] EOF received (9)
-DEBUG:paramiko.transport:starting thread (client mode): 0xfb5daa90
-DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_2.4.2
-DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u6
-INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4p1)
-DEBUG:paramiko.transport:kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['ssh-rsa', 'rsa-sha2-512', 'rsa-sha2-256', 'ecdsa-sha2-nistp256', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
-DEBUG:paramiko.transport:Kex agreed: ecdh-sha2-nistp256
-DEBUG:paramiko.transport:HostKey agreed: ssh-ed25519
-DEBUG:paramiko.transport:Cipher agreed: aes128-ctr
-DEBUG:paramiko.transport:MAC agreed: hmac-sha2-256
-DEBUG:paramiko.transport:Compression agreed: none
-DEBUG:paramiko.transport:kex engine KexNistp256 specified hash_algo <built-in function openssl_sha256>
-DEBUG:paramiko.transport:Switch to new keys ...
-DEBUG:paramiko.transport:Adding ssh-ed25519 host key for 172.16.15.24: b'8697d405e2ec7e105637d9dcd97a6ede'
-DEBUG:paramiko.transport:userauth is OK
-INFO:paramiko.transport:Authentication (password) successful!
-INFO:root:
-
-INFO:root:NEW RUN 2019-03-23 10:28:05.675433
-
-DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:Received global request "hostkeys-00@openssh.com"
-DEBUG:paramiko.transport:Rejecting "hostkeys-00@openssh.com" global request from server.
-DEBUG:paramiko.transport:[chan 0] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 0 opened.
-DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
-DEBUG:paramiko.transport:[chan 0] EOF received (0)
-DEBUG:paramiko.transport:[chan 0] EOF sent (0)
-DEBUG:paramiko.transport:[chan 1] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 1] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 1 opened.
-DEBUG:paramiko.transport:[chan 1] Sesch channel 1 request ok
-DEBUG:paramiko.transport:[chan 1] EOF received (1)
-DEBUG:paramiko.transport:[chan 1] EOF sent (1)
-DEBUG:paramiko.transport:[chan 2] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 2] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 2 opened.
-DEBUG:paramiko.transport:[chan 2] Sesch channel 2 request ok
-INFO:paramiko.transport.sftp:[chan 2] Opened sftp connection (server version 3)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers')
-DEBUG:paramiko.transport.sftp:[chan 2] normalize(b'/home/steeve/Documents/my_deployer/msContainers')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/app.py', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/app.py', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers/app.py')
-DEBUG:paramiko.transport:[chan 3] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 3] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 3 opened.
-DEBUG:paramiko.transport:[chan 3] Sesch channel 3 request ok
-DEBUG:paramiko.transport:[chan 3] EOF received (3)
-INFO:root:Sending build context to Docker daemon  7.168kB
-Step 1/10 : FROM debian:latest
- ---> 0af60a5c6dd0
-Step 2/10 : MAINTAINER Steeve Péré "steevepere@gmail.com"
- ---> Using cache
- ---> 55277f65a3a0
-Step 3/10 : RUN apt-get update -y
- ---> Using cache
- ---> f9537c14a2c0
-Step 4/10 : RUN apt-get install -y python3-pip python-dev build-essential curl
- ---> Using cache
- ---> 0547420604f7
-Step 5/10 : RUN pip3 install flask
- ---> Using cache
- ---> 6799b250e47e
-Step 6/10 : RUN pip3 install paramiko
- ---> Using cache
- ---> 07214dbc248b
-Step 7/10 : COPY . .
- ---> Using cache
- ---> d876e5486d3f
-Step 8/10 : ENTRYPOINT ["python3"]
- ---> Using cache
- ---> d56ba976331a
-Step 9/10 : CMD ["app.py"]
- ---> Using cache
- ---> e4ed4887f613
-Step 10/10 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5002/containers || exit 1
- ---> Using cache
- ---> ef5ce113266b
-Successfully built ef5ce113266b
-Successfully tagged mscontainers:latest
-status: O.K.
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy')
-DEBUG:paramiko.transport:[chan 3] EOF sent (3)
-DEBUG:paramiko.transport.sftp:[chan 2] normalize(b'/home/steeve/Documents/my_deployer/msDaisy')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/app.py', 'wb')
-DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msDaisy/app.py', 'wb') -> 00000000
-DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
-DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy/app.py')
-DEBUG:paramiko.transport:[chan 4] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 4] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 4 opened.
-DEBUG:paramiko.transport:[chan 4] Sesch channel 4 request ok
-DEBUG:paramiko.transport:[chan 4] EOF received (4)
-INFO:root:Sending build context to Docker daemon  3.072kB
-Step 1/9 : FROM debian:latest
- ---> 0af60a5c6dd0
-Step 2/9 : MAINTAINER Steeve Péré "steevepere@gmail.com"
- ---> Using cache
- ---> 55277f65a3a0
-Step 3/9 : RUN apt-get update -y
- ---> Using cache
- ---> f9537c14a2c0
-Step 4/9 : RUN apt-get install -y python-pip python-dev build-essential curl
- ---> Using cache
- ---> 9eea8c49641c
-Step 5/9 : RUN pip install flask
- ---> Using cache
- ---> aa806fe2a073
-Step 6/9 : COPY . .
- ---> Using cache
- ---> 4428f20c2b46
-Step 7/9 : ENTRYPOINT ["python"]
- ---> Using cache
- ---> fd92c108a9b3
-Step 8/9 : CMD ["app.py"]
- ---> Using cache
- ---> e7289d272217
-Step 9/9 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5003/hello || exit 1
- ---> Using cache
- ---> 98b1f6fc2d5a
-Successfully built 98b1f6fc2d5a
-Successfully tagged msdaisy:latest
-status: O.K.
-INFO:paramiko.transport.sftp:[chan 2] sftp session closed.
-DEBUG:paramiko.transport:[chan 2] EOF sent (2)
-DEBUG:paramiko.transport:[chan 5] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 4] EOF sent (4)
-DEBUG:paramiko.transport:Ignoring message for dead channel 2
-DEBUG:paramiko.transport:Ignoring message for dead channel 2
-DEBUG:paramiko.transport:Ignoring message for dead channel 2
-DEBUG:paramiko.transport:[chan 5] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 5 opened.
-DEBUG:paramiko.transport:[chan 5] Sesch channel 5 request ok
-DEBUG:paramiko.transport:[chan 5] EOF received (5)
-DEBUG:paramiko.transport:[chan 5] EOF sent (5)
-DEBUG:paramiko.transport:[chan 6] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 6] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 6 opened.
-DEBUG:paramiko.transport:[chan 6] Sesch channel 6 request ok
-DEBUG:paramiko.transport:[chan 6] EOF received (6)
-DEBUG:paramiko.transport:[chan 6] EOF sent (6)
-INFO:root:80e404332ea1
-status: O.K.
-DEBUG:paramiko.transport:[chan 7] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 7] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 7 opened.
-DEBUG:paramiko.transport:[chan 7] Sesch channel 7 request ok
-DEBUG:paramiko.transport:[chan 7] EOF received (7)
-INFO:root:mscontainers_backup
-status: O.K.
-DEBUG:paramiko.transport:[chan 8] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 7] EOF sent (7)
-DEBUG:paramiko.transport:[chan 8] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 8 opened.
-DEBUG:paramiko.transport:[chan 8] Sesch channel 8 request ok
-DEBUG:paramiko.transport:[chan 8] EOF received (8)
-INFO:root:status: O.K.
-DEBUG:paramiko.transport:[chan 9] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 8] EOF sent (8)
-DEBUG:paramiko.transport:[chan 9] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 9 opened.
-DEBUG:paramiko.transport:[chan 9] Sesch channel 9 request ok
-DEBUG:paramiko.transport:[chan 9] EOF received (9)
-INFO:root:8af10495d09a167b79149b3275389009c7d69b61e0dae09b025794f5a0477620
-status: O.K.
-DEBUG:paramiko.transport:[chan 9] EOF sent (9)
-DEBUG:paramiko.transport:[chan 10] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 10] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 10 opened.
-DEBUG:paramiko.transport:[chan 10] Sesch channel 10 request ok
-DEBUG:paramiko.transport:[chan 10] EOF received (10)
-DEBUG:paramiko.transport:[chan 11] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 10] EOF sent (10)
-DEBUG:paramiko.transport:[chan 11] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 11 opened.
-DEBUG:paramiko.transport:[chan 11] Sesch channel 11 request ok
-DEBUG:paramiko.transport:[chan 11] EOF received (11)
-DEBUG:paramiko.transport:[chan 12] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 11] EOF sent (11)
-DEBUG:paramiko.transport:[chan 12] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 12 opened.
-DEBUG:paramiko.transport:[chan 12] Sesch channel 12 request ok
-DEBUG:paramiko.transport:[chan 12] EOF received (12)
-INFO:root:73e228be6fd9
-status: O.K.
-DEBUG:paramiko.transport:[chan 13] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 12] EOF sent (12)
-DEBUG:paramiko.transport:[chan 13] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 13 opened.
-DEBUG:paramiko.transport:[chan 13] Sesch channel 13 request ok
-DEBUG:paramiko.transport:[chan 13] EOF received (13)
-INFO:root:msdaisy_backup
-status: O.K.
-DEBUG:paramiko.transport:[chan 14] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 13] EOF sent (13)
-DEBUG:paramiko.transport:[chan 14] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 14 opened.
-DEBUG:paramiko.transport:[chan 14] Sesch channel 14 request ok
-DEBUG:paramiko.transport:[chan 14] EOF received (14)
-INFO:root:status: O.K.
-DEBUG:paramiko.transport:[chan 15] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 14] EOF sent (14)
-DEBUG:paramiko.transport:[chan 15] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 15 opened.
-DEBUG:paramiko.transport:[chan 15] Sesch channel 15 request ok
-DEBUG:paramiko.transport:[chan 15] EOF received (15)
-INFO:root:27951d46690f9e6832108cc594066921ecf6c8d7ec65ae95c2b433fc5c944739
-status: O.K.
-DEBUG:paramiko.transport:[chan 15] EOF sent (15)
-DEBUG:paramiko.transport:[chan 16] Max packet in: 32768 bytes
-DEBUG:paramiko.transport:[chan 16] Max packet out: 32768 bytes
-DEBUG:paramiko.transport:Secsh channel 16 opened.
-DEBUG:paramiko.transport:[chan 16] Sesch channel 16 request ok
-DEBUG:paramiko.transport:[chan 16] EOF received (16)
-DEBUG:paramiko.transport:starting thread (client mode): 0x628a7c50
+DEBUG:paramiko.transport:starting thread (client mode): 0x42303c50
 DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_2.4.2
 DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u6
 INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4p1)
@@ -561,7 +14,7 @@ DEBUG:paramiko.transport:userauth is OK
 INFO:paramiko.transport:Authentication (password) successful!
 INFO:root:
 
-INFO:root:NEW RUN 2019-03-23 10:49:16.341289
+INFO:root:NEW RUN 2019-03-23 11:01:17.641051
 
 DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:Received global request "hostkeys-00@openssh.com"
@@ -570,14 +23,290 @@ DEBUG:paramiko.transport:[chan 0] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 0 opened.
 DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
 DEBUG:paramiko.transport:[chan 0] EOF received (0)
+WARNING:root:Cannot connect to the Docker daemon at unix:///var/run/docker.sock. Is the docker daemon running?
+status: K.O.
 DEBUG:paramiko.transport:[chan 1] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 0] EOF sent (0)
 DEBUG:paramiko.transport:[chan 1] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 1 opened.
 DEBUG:paramiko.transport:[chan 1] Sesch channel 1 request ok
-DEBUG:paramiko.transport:[chan 1] EOF received (1)
-DEBUG:paramiko.transport:[chan 1] EOF sent (1)
+INFO:paramiko.transport.sftp:[chan 1] Opened sftp connection (server version 3)
+DEBUG:paramiko.transport.sftp:[chan 1] open(b'/home/steeve/Documents/my_deployer/install_or_update_docker.sh', 'wb')
+DEBUG:paramiko.transport.sftp:[chan 1] open(b'/home/steeve/Documents/my_deployer/install_or_update_docker.sh', 'wb') -> 00000000
+DEBUG:paramiko.transport.sftp:[chan 1] close(00000000)
+DEBUG:paramiko.transport.sftp:[chan 1] stat(b'/home/steeve/Documents/my_deployer/install_or_update_docker.sh')
 DEBUG:paramiko.transport:[chan 2] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 2] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 2 opened.
+DEBUG:paramiko.transport:[chan 2] Sesch channel 2 request ok
+DEBUG:paramiko.transport:[chan 2] EOF received (2)
+WARNING:root:Warning: apt-key output should not be parsed (stdout is not a terminal)
+/home/steeve/Documents/my_deployer/install_or_update_docker.sh: 19: /home/steeve/Documents/my_deployer/install_or_update_docker.sh: deb [arch=amd64] https://download.docker.com/linux/debian    stretch    stable: not found
+debconf: unable to initialize frontend: Dialog
+debconf: (TERM is not set, so the dialog frontend is not usable.)
+debconf: falling back to frontend: Readline
+debconf: unable to initialize frontend: Readline
+debconf: (This frontend requires a controlling tty.)
+debconf: falling back to frontend: Teletype
+dpkg-preconfigure: unable to re-open stdin: 
+status: K.O.
+INFO:root:Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  aufs-dkms aufs-tools cgroupfs-mount dkms linux-headers-amd64 pigz
+Use 'apt autoremove' to remove them.
+The following packages will be REMOVED:
+  docker-ce*
+0 upgraded, 0 newly installed, 1 to remove and 0 not upgraded.
+After this operation, 0 B of additional disk space will be used.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 66043 files and directories currently installed.)
+Purging configuration files for docker-ce (5:18.09.3~3-0~debian-stretch) ...
+Processing triggers for systemd (232-25+deb9u9) ...
+Ign:1 http://ftp.fr.debian.org/debian stretch InRelease
+Hit:2 http://security.debian.org/debian-security stretch/updates InRelease
+Get:3 http://ftp.fr.debian.org/debian stretch-updates InRelease [91.0 kB]
+Hit:4 http://ftp.fr.debian.org/debian stretch Release
+Get:5 https://download.docker.com/linux/debian stretch InRelease [44.8 kB]
+Fetched 136 kB in 0s (152 kB/s)
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+apt-transport-https is already the newest version (1.4.9).
+ca-certificates is already the newest version (20161130+nmu1+deb9u1).
+curl is already the newest version (7.52.1-5+deb9u9).
+gnupg2 is already the newest version (2.1.18-8~deb9u4).
+software-properties-common is already the newest version (0.96.20.2-1).
+The following packages were automatically installed and are no longer required:
+  aufs-dkms aufs-tools cgroupfs-mount dkms linux-headers-amd64 pigz
+Use 'apt autoremove' to remove them.
+0 upgraded, 0 newly installed, 0 to remove and 0 not upgraded.
+OK
+Error: ' ' invalid
+Hit:1 http://security.debian.org/debian-security stretch/updates InRelease
+Ign:2 http://ftp.fr.debian.org/debian stretch InRelease
+Hit:3 http://ftp.fr.debian.org/debian stretch-updates InRelease
+Hit:4 http://ftp.fr.debian.org/debian stretch Release
+Hit:5 https://download.docker.com/linux/debian stretch InRelease
+Reading package lists...
+Reading package lists...
+Building dependency tree...
+Reading state information...
+containerd.io is already the newest version (1.2.4-1).
+docker-ce-cli is already the newest version (5:18.09.3~3-0~debian-stretch).
+The following NEW packages will be installed:
+  docker-ce
+0 upgraded, 1 newly installed, 0 to remove and 0 not upgraded.
+Need to get 0 B/17.5 MB of archives.
+After this operation, 85.4 MB of additional disk space will be used.
+Selecting previously unselected package docker-ce.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 66040 files and directories currently installed.)
+Preparing to unpack .../docker-ce_5%3a18.09.3~3-0~debian-stretch_amd64.deb ...
+Unpacking docker-ce (5:18.09.3~3-0~debian-stretch) ...
+Setting up docker-ce (5:18.09.3~3-0~debian-stretch) ...
+update-alternatives: using /usr/bin/dockerd-ce to provide /usr/bin/dockerd (dockerd) in auto mode
+Created symlink /etc/systemd/system/multi-user.target.wants/docker.service → /lib/systemd/system/docker.service.
+Created symlink /etc/systemd/system/sockets.target.wants/docker.socket → /lib/systemd/system/docker.socket.
+Processing triggers for systemd (232-25+deb9u9) ...
+status: O.K.
+DEBUG:paramiko.transport.sftp:[chan 1] remove(b'/home/steeve/Documents/my_deployer/install_or_update_docker.sh')
+DEBUG:paramiko.transport:[chan 2] EOF sent (2)
+INFO:paramiko.transport.sftp:[chan 1] sftp session closed.
+DEBUG:paramiko.transport:[chan 1] EOF sent (1)
+DEBUG:paramiko.transport:[chan 3] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 3] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 3 opened.
+DEBUG:paramiko.transport:[chan 3] Sesch channel 3 request ok
+INFO:paramiko.transport.sftp:[chan 3] Opened sftp connection (server version 3)
+DEBUG:paramiko.transport.sftp:[chan 3] stat(b'/home/steeve/Documents/my_deployer/msContainers')
+DEBUG:paramiko.transport.sftp:[chan 3] normalize(b'/home/steeve/Documents/my_deployer/msContainers')
+DEBUG:paramiko.transport.sftp:[chan 3] open(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile', 'wb')
+DEBUG:paramiko.transport.sftp:[chan 3] open(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile', 'wb') -> 00000000
+DEBUG:paramiko.transport.sftp:[chan 3] close(00000000)
+DEBUG:paramiko.transport.sftp:[chan 3] stat(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile')
+DEBUG:paramiko.transport.sftp:[chan 3] open(b'/home/steeve/Documents/my_deployer/msContainers/app.py', 'wb')
+DEBUG:paramiko.transport.sftp:[chan 3] open(b'/home/steeve/Documents/my_deployer/msContainers/app.py', 'wb') -> 00000000
+DEBUG:paramiko.transport.sftp:[chan 3] close(00000000)
+DEBUG:paramiko.transport.sftp:[chan 3] stat(b'/home/steeve/Documents/my_deployer/msContainers/app.py')
+DEBUG:paramiko.transport:[chan 4] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 4] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 4 opened.
+DEBUG:paramiko.transport:[chan 4] Sesch channel 4 request ok
+DEBUG:paramiko.transport:[chan 4] EOF received (4)
+INFO:root:Sending build context to Docker daemon  7.168kB
+Step 1/10 : FROM debian:latest
+ ---> 0af60a5c6dd0
+Step 2/10 : MAINTAINER Steeve Péré "steevepere@gmail.com"
+ ---> Using cache
+ ---> 55277f65a3a0
+Step 3/10 : RUN apt-get update -y
+ ---> Using cache
+ ---> f9537c14a2c0
+Step 4/10 : RUN apt-get install -y python3-pip python-dev build-essential curl
+ ---> Using cache
+ ---> 0547420604f7
+Step 5/10 : RUN pip3 install flask
+ ---> Using cache
+ ---> 6799b250e47e
+Step 6/10 : RUN pip3 install paramiko
+ ---> Using cache
+ ---> 07214dbc248b
+Step 7/10 : COPY . .
+ ---> Using cache
+ ---> efffefa2db4e
+Step 8/10 : ENTRYPOINT ["python3"]
+ ---> Using cache
+ ---> 11049c6dcf34
+Step 9/10 : CMD ["app.py"]
+ ---> Using cache
+ ---> 6a0d9f4cda2b
+Step 10/10 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5002/containers || exit 1
+ ---> Using cache
+ ---> c17b78b99c45
+Successfully built c17b78b99c45
+Successfully tagged mscontainers:latest
+status: O.K.
+DEBUG:paramiko.transport.sftp:[chan 3] stat(b'/home/steeve/Documents/my_deployer/msDaisy')
+DEBUG:paramiko.transport:[chan 4] EOF sent (4)
+DEBUG:paramiko.transport.sftp:[chan 3] normalize(b'/home/steeve/Documents/my_deployer/msDaisy')
+DEBUG:paramiko.transport.sftp:[chan 3] open(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile', 'wb')
+DEBUG:paramiko.transport.sftp:[chan 3] open(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile', 'wb') -> 00000000
+DEBUG:paramiko.transport.sftp:[chan 3] close(00000000)
+DEBUG:paramiko.transport.sftp:[chan 3] stat(b'/home/steeve/Documents/my_deployer/msDaisy/Dockerfile')
+DEBUG:paramiko.transport.sftp:[chan 3] open(b'/home/steeve/Documents/my_deployer/msDaisy/app.py', 'wb')
+DEBUG:paramiko.transport.sftp:[chan 3] open(b'/home/steeve/Documents/my_deployer/msDaisy/app.py', 'wb') -> 00000000
+DEBUG:paramiko.transport.sftp:[chan 3] close(00000000)
+DEBUG:paramiko.transport.sftp:[chan 3] stat(b'/home/steeve/Documents/my_deployer/msDaisy/app.py')
+DEBUG:paramiko.transport:[chan 5] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 5] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 5 opened.
+DEBUG:paramiko.transport:[chan 5] Sesch channel 5 request ok
+DEBUG:paramiko.transport:[chan 5] EOF received (5)
+INFO:root:Sending build context to Docker daemon  3.072kB
+Step 1/9 : FROM debian:latest
+ ---> 0af60a5c6dd0
+Step 2/9 : MAINTAINER Steeve Péré "steevepere@gmail.com"
+ ---> Using cache
+ ---> 55277f65a3a0
+Step 3/9 : RUN apt-get update -y
+ ---> Using cache
+ ---> f9537c14a2c0
+Step 4/9 : RUN apt-get install -y python-pip python-dev build-essential curl
+ ---> Using cache
+ ---> 9eea8c49641c
+Step 5/9 : RUN pip install flask
+ ---> Using cache
+ ---> aa806fe2a073
+Step 6/9 : COPY . .
+ ---> Using cache
+ ---> 4428f20c2b46
+Step 7/9 : ENTRYPOINT ["python"]
+ ---> Using cache
+ ---> fd92c108a9b3
+Step 8/9 : CMD ["app.py"]
+ ---> Using cache
+ ---> e7289d272217
+Step 9/9 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5003/hello || exit 1
+ ---> Using cache
+ ---> 98b1f6fc2d5a
+Successfully built 98b1f6fc2d5a
+Successfully tagged msdaisy:latest
+status: O.K.
+INFO:paramiko.transport.sftp:[chan 3] sftp session closed.
+DEBUG:paramiko.transport:[chan 3] EOF sent (3)
+DEBUG:paramiko.transport:[chan 6] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 5] EOF sent (5)
+DEBUG:paramiko.transport:Ignoring message for dead channel 3
+DEBUG:paramiko.transport:Ignoring message for dead channel 3
+DEBUG:paramiko.transport:Ignoring message for dead channel 3
+DEBUG:paramiko.transport:[chan 6] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 6 opened.
+DEBUG:paramiko.transport:[chan 6] Sesch channel 6 request ok
+DEBUG:paramiko.transport:[chan 6] EOF received (6)
+DEBUG:paramiko.transport:[chan 6] EOF sent (6)
+DEBUG:paramiko.transport:[chan 7] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 7] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 7 opened.
+DEBUG:paramiko.transport:[chan 7] Sesch channel 7 request ok
+DEBUG:paramiko.transport:[chan 7] EOF received (7)
+INFO:root:mscontainers
+status: O.K.
+DEBUG:paramiko.transport:[chan 8] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 7] EOF sent (7)
+DEBUG:paramiko.transport:[chan 8] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 8 opened.
+DEBUG:paramiko.transport:[chan 8] Sesch channel 8 request ok
+DEBUG:paramiko.transport:[chan 8] EOF received (8)
+INFO:root:bd300e6d98290c1c5d0efdbdaf5ddbb7996533a9bc1d62b1aac50e4382cee405
+status: O.K.
+DEBUG:paramiko.transport:[chan 9] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 8] EOF sent (8)
+DEBUG:paramiko.transport:[chan 9] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 9 opened.
+DEBUG:paramiko.transport:[chan 9] Sesch channel 9 request ok
+DEBUG:paramiko.transport:[chan 9] EOF received (9)
+DEBUG:paramiko.transport:[chan 9] EOF sent (9)
+DEBUG:paramiko.transport:[chan 10] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 10] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 10 opened.
+DEBUG:paramiko.transport:[chan 10] Sesch channel 10 request ok
+DEBUG:paramiko.transport:[chan 10] EOF received (10)
+INFO:root:msdaisy
+status: O.K.
+DEBUG:paramiko.transport:[chan 11] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 11] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 11 opened.
+DEBUG:paramiko.transport:[chan 10] EOF sent (10)
+DEBUG:paramiko.transport:[chan 11] Sesch channel 11 request ok
+DEBUG:paramiko.transport:[chan 11] EOF received (11)
+DEBUG:paramiko.transport:[chan 11] EOF sent (11)
+INFO:root:5c47476ed48f1e392679cb3d86ab30a5749b536026333f403bdcd57afb27706d
+status: O.K.
+DEBUG:paramiko.transport:[chan 12] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 12] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 12 opened.
+DEBUG:paramiko.transport:[chan 12] Sesch channel 12 request ok
+DEBUG:paramiko.transport:[chan 12] EOF received (12)
+DEBUG:paramiko.transport:[chan 13] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 12] EOF sent (12)
+DEBUG:paramiko.transport:[chan 13] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 13 opened.
+DEBUG:paramiko.transport:[chan 13] Sesch channel 13 request ok
+DEBUG:paramiko.transport:[chan 13] EOF received (13)
+DEBUG:paramiko.transport:starting thread (client mode): 0xb2bc0c50
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_2.4.2
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u6
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4p1)
+DEBUG:paramiko.transport:kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['ssh-rsa', 'rsa-sha2-512', 'rsa-sha2-256', 'ecdsa-sha2-nistp256', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+DEBUG:paramiko.transport:Kex agreed: ecdh-sha2-nistp256
+DEBUG:paramiko.transport:HostKey agreed: ecdsa-sha2-nistp256
+DEBUG:paramiko.transport:Cipher agreed: aes128-ctr
+DEBUG:paramiko.transport:MAC agreed: hmac-sha2-256
+DEBUG:paramiko.transport:Compression agreed: none
+DEBUG:paramiko.transport:kex engine KexNistp256 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:
+
+INFO:root:NEW RUN 2019-03-23 11:03:49.357906
+
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:Received global request "hostkeys-00@openssh.com"
+DEBUG:paramiko.transport:Rejecting "hostkeys-00@openssh.com" global request from server.
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] EOF received (0)
+DEBUG:paramiko.transport:[chan 0] EOF sent (0)
+DEBUG:paramiko.transport:[chan 1] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 1] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 1 opened.
+DEBUG:paramiko.transport:[chan 1] Sesch channel 1 request ok
+DEBUG:paramiko.transport:[chan 1] EOF received (1)
+DEBUG:paramiko.transport:[chan 2] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 1] EOF sent (1)
 DEBUG:paramiko.transport:[chan 2] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 2 opened.
 DEBUG:paramiko.transport:[chan 2] Sesch channel 2 request ok
@@ -597,7 +326,7 @@ DEBUG:paramiko.transport:[chan 3] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 3 opened.
 DEBUG:paramiko.transport:[chan 3] Sesch channel 3 request ok
 DEBUG:paramiko.transport:[chan 3] EOF received (3)
-INFO:root:Sending build context to Docker daemon  6.656kB
+INFO:root:Sending build context to Docker daemon  7.168kB
 Step 1/10 : FROM debian:latest
  ---> 0af60a5c6dd0
 Step 2/10 : MAINTAINER Steeve Péré "steevepere@gmail.com"
@@ -616,20 +345,18 @@ Step 6/10 : RUN pip3 install paramiko
  ---> Using cache
  ---> 07214dbc248b
 Step 7/10 : COPY . .
- ---> a4feb55a9a3b
+ ---> Using cache
+ ---> efffefa2db4e
 Step 8/10 : ENTRYPOINT ["python3"]
- ---> Running in 16e94cb1860c
-Removing intermediate container 16e94cb1860c
- ---> 59c30cc8c7a1
+ ---> Using cache
+ ---> 11049c6dcf34
 Step 9/10 : CMD ["app.py"]
- ---> Running in 77073707b9dc
-Removing intermediate container 77073707b9dc
- ---> cf25e17e769c
+ ---> Using cache
+ ---> 6a0d9f4cda2b
 Step 10/10 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5002/containers || exit 1
- ---> Running in baa0695a61d9
-Removing intermediate container baa0695a61d9
- ---> 5312662a0654
-Successfully built 5312662a0654
+ ---> Using cache
+ ---> c17b78b99c45
+Successfully built c17b78b99c45
 Successfully tagged mscontainers:latest
 status: O.K.
 DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msDaisy')
@@ -680,8 +407,8 @@ Successfully tagged msdaisy:latest
 status: O.K.
 INFO:paramiko.transport.sftp:[chan 2] sftp session closed.
 DEBUG:paramiko.transport:[chan 2] EOF sent (2)
-DEBUG:paramiko.transport:[chan 5] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 4] EOF sent (4)
+DEBUG:paramiko.transport:[chan 5] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:Ignoring message for dead channel 2
 DEBUG:paramiko.transport:Ignoring message for dead channel 2
 DEBUG:paramiko.transport:Ignoring message for dead channel 2
@@ -689,13 +416,13 @@ DEBUG:paramiko.transport:[chan 5] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 5 opened.
 DEBUG:paramiko.transport:[chan 5] Sesch channel 5 request ok
 DEBUG:paramiko.transport:[chan 5] EOF received (5)
-DEBUG:paramiko.transport:[chan 5] EOF sent (5)
 DEBUG:paramiko.transport:[chan 6] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 5] EOF sent (5)
 DEBUG:paramiko.transport:[chan 6] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 6 opened.
 DEBUG:paramiko.transport:[chan 6] Sesch channel 6 request ok
 DEBUG:paramiko.transport:[chan 6] EOF received (6)
-INFO:root:8af10495d09a
+INFO:root:bd300e6d9829
 status: O.K.
 DEBUG:paramiko.transport:[chan 7] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 6] EOF sent (6)
@@ -711,23 +438,23 @@ DEBUG:paramiko.transport:[chan 8] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 8 opened.
 DEBUG:paramiko.transport:[chan 8] Sesch channel 8 request ok
 DEBUG:paramiko.transport:[chan 8] EOF received (8)
-DEBUG:paramiko.transport:[chan 8] EOF sent (8)
 INFO:root:status: O.K.
 DEBUG:paramiko.transport:[chan 9] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 8] EOF sent (8)
 DEBUG:paramiko.transport:[chan 9] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 9 opened.
 DEBUG:paramiko.transport:[chan 9] Sesch channel 9 request ok
 DEBUG:paramiko.transport:[chan 9] EOF received (9)
-DEBUG:paramiko.transport:[chan 9] EOF sent (9)
-INFO:root:f4884f890fd28f783e7e4e05b06a89b40cbf37f383dcbffccee3c29479173422
+INFO:root:48e8b1be477b9e64b787cf27bbc7a96ed8a5177bd5c9f630dbd34c6443c93ec6
 status: O.K.
+DEBUG:paramiko.transport:[chan 9] EOF sent (9)
 DEBUG:paramiko.transport:[chan 10] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 10] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 10 opened.
 DEBUG:paramiko.transport:[chan 10] Sesch channel 10 request ok
 DEBUG:paramiko.transport:[chan 10] EOF received (10)
-DEBUG:paramiko.transport:[chan 11] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 10] EOF sent (10)
+DEBUG:paramiko.transport:[chan 11] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 11] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 11 opened.
 DEBUG:paramiko.transport:[chan 11] Sesch channel 11 request ok
@@ -738,10 +465,10 @@ DEBUG:paramiko.transport:[chan 12] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 12 opened.
 DEBUG:paramiko.transport:[chan 12] Sesch channel 12 request ok
 DEBUG:paramiko.transport:[chan 12] EOF received (12)
-DEBUG:paramiko.transport:[chan 12] EOF sent (12)
-INFO:root:27951d46690f
+INFO:root:5c47476ed48f
 status: O.K.
 DEBUG:paramiko.transport:[chan 13] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 12] EOF sent (12)
 DEBUG:paramiko.transport:[chan 13] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 13 opened.
 DEBUG:paramiko.transport:[chan 13] Sesch channel 13 request ok
@@ -754,14 +481,14 @@ DEBUG:paramiko.transport:[chan 14] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 14 opened.
 DEBUG:paramiko.transport:[chan 14] Sesch channel 14 request ok
 DEBUG:paramiko.transport:[chan 14] EOF received (14)
-DEBUG:paramiko.transport:[chan 14] EOF sent (14)
 INFO:root:status: O.K.
 DEBUG:paramiko.transport:[chan 15] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 14] EOF sent (14)
 DEBUG:paramiko.transport:[chan 15] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 15 opened.
 DEBUG:paramiko.transport:[chan 15] Sesch channel 15 request ok
 DEBUG:paramiko.transport:[chan 15] EOF received (15)
-INFO:root:d17dbbfea9d318bcd2b38952b937a5634ac22a98ecbb5034e0eecd38b751773d
+INFO:root:26f67cac6de2459b175afe439d19a385c34ad819ddf254b5156d690ee23af59f
 status: O.K.
 DEBUG:paramiko.transport:[chan 15] EOF sent (15)
 DEBUG:paramiko.transport:[chan 16] Max packet in: 32768 bytes
@@ -775,14 +502,13 @@ DEBUG:paramiko.transport:[chan 17] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 17 opened.
 DEBUG:paramiko.transport:[chan 17] Sesch channel 17 request ok
 DEBUG:paramiko.transport:[chan 17] EOF received (17)
-DEBUG:paramiko.transport:[chan 17] EOF sent (17)
 DEBUG:paramiko.transport:[chan 18] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 17] EOF sent (17)
 DEBUG:paramiko.transport:[chan 18] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 18 opened.
 DEBUG:paramiko.transport:[chan 18] Sesch channel 18 request ok
 DEBUG:paramiko.transport:[chan 18] EOF received (18)
-DEBUG:paramiko.transport:[chan 18] EOF sent (18)
-DEBUG:paramiko.transport:starting thread (client mode): 0xa882fc50
+DEBUG:paramiko.transport:starting thread (client mode): 0x6e0e0c18
 DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_2.4.2
 DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u6
 INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4p1)
@@ -798,7 +524,145 @@ DEBUG:paramiko.transport:userauth is OK
 INFO:paramiko.transport:Authentication (password) successful!
 INFO:root:
 
-INFO:root:NEW RUN 2019-03-23 10:56:41.251532
+INFO:root:NEW RUN 2019-03-23 11:05:10.818800
+
+DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:Received global request "hostkeys-00@openssh.com"
+DEBUG:paramiko.transport:Rejecting "hostkeys-00@openssh.com" global request from server.
+DEBUG:paramiko.transport:[chan 0] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 0 opened.
+DEBUG:paramiko.transport:[chan 0] Sesch channel 0 request ok
+DEBUG:paramiko.transport:[chan 0] EOF received (0)
+DEBUG:paramiko.transport:[chan 1] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 0] EOF sent (0)
+DEBUG:paramiko.transport:[chan 1] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 1 opened.
+DEBUG:paramiko.transport:[chan 1] Sesch channel 1 request ok
+DEBUG:paramiko.transport:[chan 1] EOF received (1)
+DEBUG:paramiko.transport:[chan 2] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 1] EOF sent (1)
+DEBUG:paramiko.transport:[chan 2] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 2 opened.
+DEBUG:paramiko.transport:[chan 2] Sesch channel 2 request ok
+INFO:paramiko.transport.sftp:[chan 2] Opened sftp connection (server version 3)
+DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers')
+DEBUG:paramiko.transport.sftp:[chan 2] normalize(b'/home/steeve/Documents/my_deployer/msContainers')
+DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile', 'wb')
+DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile', 'wb') -> 00000000
+DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
+DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers/Dockerfile')
+DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/app.py', 'wb')
+DEBUG:paramiko.transport.sftp:[chan 2] open(b'/home/steeve/Documents/my_deployer/msContainers/app.py', 'wb') -> 00000000
+DEBUG:paramiko.transport.sftp:[chan 2] close(00000000)
+DEBUG:paramiko.transport.sftp:[chan 2] stat(b'/home/steeve/Documents/my_deployer/msContainers/app.py')
+DEBUG:paramiko.transport:[chan 3] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 3] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 3 opened.
+DEBUG:paramiko.transport:[chan 3] Sesch channel 3 request ok
+DEBUG:paramiko.transport:[chan 3] EOF received (3)
+DEBUG:paramiko.transport:[chan 3] EOF sent (3)
+INFO:root:Sending build context to Docker daemon  7.168kB
+Step 1/10 : FROM debian:latest
+ ---> 0af60a5c6dd0
+Step 2/10 : MAINTAINER Steeve Péré "steevepere@gmail.com"
+ ---> Using cache
+ ---> 55277f65a3a0
+Step 3/10 : RUN apt-get update -y
+ ---> Using cache
+ ---> f9537c14a2c0
+Step 4/10 : RUN apt-get install -y python3-pip python-dev build-essential curl
+ ---> Using cache
+ ---> 0547420604f7
+Step 5/10 : RUN pip3 install flask
+ ---> Using cache
+ ---> 6799b250e47e
+Step 6/10 : RUN pip3 install paramiko
+ ---> Using cache
+ ---> 07214dbc248b
+Step 7/10 : COPY . .
+ ---> Using cache
+ ---> efffefa2db4e
+Step 8/10 : ENTRYPOINT ["python3"]
+ ---> Using cache
+ ---> 11049c6dcf34
+Step 9/10 : CMD ["app.py"]
+ ---> Using cache
+ ---> 6a0d9f4cda2b
+Step 10/10 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5002/containers || exit 1
+ ---> Using cache
+ ---> c17b78b99c45
+Successfully built c17b78b99c45
+Successfully tagged mscontainers:latest
+status: O.K.
+INFO:paramiko.transport.sftp:[chan 2] sftp session closed.
+DEBUG:paramiko.transport:[chan 2] EOF sent (2)
+DEBUG:paramiko.transport:[chan 4] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 4] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 4 opened.
+DEBUG:paramiko.transport:Ignoring message for dead channel 2
+DEBUG:paramiko.transport:Ignoring message for dead channel 2
+DEBUG:paramiko.transport:[chan 4] Sesch channel 4 request ok
+DEBUG:paramiko.transport:[chan 4] EOF received (4)
+DEBUG:paramiko.transport:[chan 4] EOF sent (4)
+DEBUG:paramiko.transport:[chan 5] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 5] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 5 opened.
+DEBUG:paramiko.transport:[chan 5] Sesch channel 5 request ok
+DEBUG:paramiko.transport:[chan 5] EOF received (5)
+INFO:root:48e8b1be477b
+status: O.K.
+DEBUG:paramiko.transport:[chan 6] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 5] EOF sent (5)
+DEBUG:paramiko.transport:[chan 6] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 6 opened.
+DEBUG:paramiko.transport:[chan 6] Sesch channel 6 request ok
+DEBUG:paramiko.transport:[chan 6] EOF received (6)
+INFO:root:mscontainers_backup
+status: O.K.
+DEBUG:paramiko.transport:[chan 7] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 6] EOF sent (6)
+DEBUG:paramiko.transport:[chan 7] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 7 opened.
+DEBUG:paramiko.transport:[chan 7] Sesch channel 7 request ok
+DEBUG:paramiko.transport:[chan 7] EOF received (7)
+INFO:root:status: O.K.
+DEBUG:paramiko.transport:[chan 8] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 7] EOF sent (7)
+DEBUG:paramiko.transport:[chan 8] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 8 opened.
+DEBUG:paramiko.transport:[chan 8] Sesch channel 8 request ok
+DEBUG:paramiko.transport:[chan 8] EOF received (8)
+INFO:root:4e9fe86a75c4a0d3a4fe5bef889ecb5cea5884f089ed084b44f633cc0bd229d5
+status: O.K.
+DEBUG:paramiko.transport:[chan 8] EOF sent (8)
+DEBUG:paramiko.transport:[chan 9] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 9] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 9 opened.
+DEBUG:paramiko.transport:[chan 9] Sesch channel 9 request ok
+DEBUG:paramiko.transport:[chan 9] EOF received (9)
+DEBUG:paramiko.transport:[chan 10] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 9] EOF sent (9)
+DEBUG:paramiko.transport:[chan 10] Max packet out: 32768 bytes
+DEBUG:paramiko.transport:Secsh channel 10 opened.
+DEBUG:paramiko.transport:[chan 10] Sesch channel 10 request ok
+DEBUG:paramiko.transport:[chan 10] EOF received (10)
+DEBUG:paramiko.transport:starting thread (client mode): 0x8e281c50
+DEBUG:paramiko.transport:Local version/idstring: SSH-2.0-paramiko_2.4.2
+DEBUG:paramiko.transport:Remote version/idstring: SSH-2.0-OpenSSH_7.4p1 Debian-10+deb9u6
+INFO:paramiko.transport:Connected (version 2.0, client OpenSSH_7.4p1)
+DEBUG:paramiko.transport:kex algos:['curve25519-sha256', 'curve25519-sha256@libssh.org', 'ecdh-sha2-nistp256', 'ecdh-sha2-nistp384', 'ecdh-sha2-nistp521', 'diffie-hellman-group-exchange-sha256', 'diffie-hellman-group16-sha512', 'diffie-hellman-group18-sha512', 'diffie-hellman-group14-sha256', 'diffie-hellman-group14-sha1'] server key:['ssh-rsa', 'rsa-sha2-512', 'rsa-sha2-256', 'ecdsa-sha2-nistp256', 'ssh-ed25519'] client encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] server encrypt:['chacha20-poly1305@openssh.com', 'aes128-ctr', 'aes192-ctr', 'aes256-ctr', 'aes128-gcm@openssh.com', 'aes256-gcm@openssh.com'] client mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] server mac:['umac-64-etm@openssh.com', 'umac-128-etm@openssh.com', 'hmac-sha2-256-etm@openssh.com', 'hmac-sha2-512-etm@openssh.com', 'hmac-sha1-etm@openssh.com', 'umac-64@openssh.com', 'umac-128@openssh.com', 'hmac-sha2-256', 'hmac-sha2-512', 'hmac-sha1'] client compress:['none', 'zlib@openssh.com'] server compress:['none', 'zlib@openssh.com'] client lang:[''] server lang:[''] kex follows?False
+DEBUG:paramiko.transport:Kex agreed: ecdh-sha2-nistp256
+DEBUG:paramiko.transport:HostKey agreed: ecdsa-sha2-nistp256
+DEBUG:paramiko.transport:Cipher agreed: aes128-ctr
+DEBUG:paramiko.transport:MAC agreed: hmac-sha2-256
+DEBUG:paramiko.transport:Compression agreed: none
+DEBUG:paramiko.transport:kex engine KexNistp256 specified hash_algo <built-in function openssl_sha256>
+DEBUG:paramiko.transport:Switch to new keys ...
+DEBUG:paramiko.transport:userauth is OK
+INFO:paramiko.transport:Authentication (password) successful!
+INFO:root:
+
+INFO:root:NEW RUN 2019-03-23 11:05:33.501401
 
 DEBUG:paramiko.transport:[chan 0] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:Received global request "hostkeys-00@openssh.com"
@@ -853,18 +717,16 @@ Step 6/10 : RUN pip3 install paramiko
  ---> Using cache
  ---> 07214dbc248b
 Step 7/10 : COPY . .
+ ---> Using cache
  ---> efffefa2db4e
 Step 8/10 : ENTRYPOINT ["python3"]
- ---> Running in 95f412154990
-Removing intermediate container 95f412154990
+ ---> Using cache
  ---> 11049c6dcf34
 Step 9/10 : CMD ["app.py"]
- ---> Running in 121f1116d1be
-Removing intermediate container 121f1116d1be
+ ---> Using cache
  ---> 6a0d9f4cda2b
 Step 10/10 : HEALTHCHECK --interval=3m --timeout=3s   CMD curl -f http://localhost:5002/containers || exit 1
- ---> Running in 39907a600db4
-Removing intermediate container 39907a600db4
+ ---> Using cache
  ---> c17b78b99c45
 Successfully built c17b78b99c45
 Successfully tagged mscontainers:latest
@@ -926,14 +788,14 @@ DEBUG:paramiko.transport:[chan 5] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 5 opened.
 DEBUG:paramiko.transport:[chan 5] Sesch channel 5 request ok
 DEBUG:paramiko.transport:[chan 5] EOF received (5)
-DEBUG:paramiko.transport:[chan 5] EOF sent (5)
 DEBUG:paramiko.transport:[chan 6] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 5] EOF sent (5)
 DEBUG:paramiko.transport:[chan 6] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 6 opened.
 DEBUG:paramiko.transport:[chan 6] Sesch channel 6 request ok
 DEBUG:paramiko.transport:[chan 6] EOF received (6)
 DEBUG:paramiko.transport:[chan 6] EOF sent (6)
-INFO:root:f4884f890fd2
+INFO:root:4e9fe86a75c4
 status: O.K.
 DEBUG:paramiko.transport:[chan 7] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 7] Max packet out: 32768 bytes
@@ -948,16 +810,16 @@ DEBUG:paramiko.transport:[chan 8] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 8 opened.
 DEBUG:paramiko.transport:[chan 8] Sesch channel 8 request ok
 DEBUG:paramiko.transport:[chan 8] EOF received (8)
-DEBUG:paramiko.transport:[chan 8] EOF sent (8)
 INFO:root:status: O.K.
 DEBUG:paramiko.transport:[chan 9] Max packet in: 32768 bytes
+DEBUG:paramiko.transport:[chan 8] EOF sent (8)
 DEBUG:paramiko.transport:[chan 9] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 9 opened.
 DEBUG:paramiko.transport:[chan 9] Sesch channel 9 request ok
 DEBUG:paramiko.transport:[chan 9] EOF received (9)
-INFO:root:1ff8471be1ab893659638b29274edaaa148ff29063c8b214792a08c0ba7d2890
-status: O.K.
 DEBUG:paramiko.transport:[chan 9] EOF sent (9)
+INFO:root:b88a5e4a469e7e5e6cc4e745d808b3853b3e559cac729ebd4eacf68c844c0c06
+status: O.K.
 DEBUG:paramiko.transport:[chan 10] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 10] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 10 opened.
@@ -969,14 +831,14 @@ DEBUG:paramiko.transport:[chan 11] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 11 opened.
 DEBUG:paramiko.transport:[chan 11] Sesch channel 11 request ok
 DEBUG:paramiko.transport:[chan 11] EOF received (11)
-DEBUG:paramiko.transport:[chan 12] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 11] EOF sent (11)
+DEBUG:paramiko.transport:[chan 12] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 12] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 12 opened.
 DEBUG:paramiko.transport:[chan 12] Sesch channel 12 request ok
 DEBUG:paramiko.transport:[chan 12] EOF received (12)
 DEBUG:paramiko.transport:[chan 12] EOF sent (12)
-INFO:root:d17dbbfea9d3
+INFO:root:26f67cac6de2
 status: O.K.
 DEBUG:paramiko.transport:[chan 13] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 13] Max packet out: 32768 bytes
@@ -998,16 +860,16 @@ DEBUG:paramiko.transport:[chan 15] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 15 opened.
 DEBUG:paramiko.transport:[chan 15] Sesch channel 15 request ok
 DEBUG:paramiko.transport:[chan 15] EOF received (15)
-INFO:root:2b468e7d0dca5ccb8e9951d46199507abf62d0b01c50c7a251268cf5a1f8af63
-status: O.K.
 DEBUG:paramiko.transport:[chan 15] EOF sent (15)
+INFO:root:e22156748da5f67dc5093d9fece101d84818b93741717ab67e58f2bb91faf98f
+status: O.K.
 DEBUG:paramiko.transport:[chan 16] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 16] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 16 opened.
 DEBUG:paramiko.transport:[chan 16] Sesch channel 16 request ok
 DEBUG:paramiko.transport:[chan 16] EOF received (16)
-DEBUG:paramiko.transport:[chan 17] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 16] EOF sent (16)
+DEBUG:paramiko.transport:[chan 17] Max packet in: 32768 bytes
 DEBUG:paramiko.transport:[chan 17] Max packet out: 32768 bytes
 DEBUG:paramiko.transport:Secsh channel 17 opened.
 DEBUG:paramiko.transport:[chan 17] Sesch channel 17 request ok

@@ -9,3 +9,4 @@ REMOTE_WORK_DIR = "/home/steeve/Documents/my_deployer/"  # remote server work di
 LOCAL_SCRIPT_PATH = LOCAL_WORK_DIR + "install_or_update_docker.sh"  # Docker install or update script
 REMOTE_SCRIPT_PATH = REMOTE_WORK_DIR + "install_or_update_docker.sh"  # Docker install or update script remote location
 USERS = ['root']  # remote server user
+REMOTE_SSH_PASSWORD = "Makaveli"
